@@ -1,12 +1,18 @@
-import type { Component } from 'solid-js';
-
 import { TranslationProvider } from '@/lib/i18n/TranslationProvider';
-import Home from './pages/Home';
 
-const App: Component = () => {
+import type { Component } from 'solid-js';
+import type { RouteSectionProps } from '@solidjs/router';
+
+const App: Component<RouteSectionProps> = (props) => {
   return (
     <TranslationProvider>
-      <Home />
+      <div class="flex flex-col min-h-screen lg:max-h-screen lg:overflow-hidden">
+        <header>site header</header>
+        <main class="grow flex flex-col">
+          {props.children}
+        </main>
+        <footer>site footer</footer>
+      </div>
     </TranslationProvider>
   );
 };

@@ -1,9 +1,12 @@
 /* @refresh reload */
 import { render } from 'solid-js/web';
+import { lazy } from 'solid-js';
 
 import './index.css';
 import App from './App';
+import { Router, Route } from '@solidjs/router';
 
+const Home = lazy(() => import('./pages/Home'));
 const root = document.getElementById('root');
 
 if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
@@ -12,4 +15,11 @@ if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
   );
 }
 
-render(() => <App />, root!);
+render(
+  () => (
+    <Router root={App}>
+      <Route path="/" component={Home} />
+    </Router>
+  ),
+  root!,
+);
