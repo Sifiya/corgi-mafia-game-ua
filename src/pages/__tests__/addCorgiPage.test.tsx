@@ -1,7 +1,7 @@
 import { describe, test, expect } from 'vitest';
 import { render, waitFor } from '@solidjs/testing-library';
 import { TranslationProvider } from '@/lib/i18n/TranslationProvider';
-import AddCorgiPage from '../AddCorgi';
+import AddCorgiPage from '../AddCorgi/AddCorgi';
 
 const WrappedAddCorgiPage = () => {
   return (
@@ -18,6 +18,10 @@ describe('AddCorgiPage', () => {
     await waitFor(() => {
       expect(getByRole('heading', { level: 1 })).toHaveTextContent('Додати свого коргі');
       expect(getByRole('link', { name: 'На головну' })).toBeInTheDocument();
+      expect(getByRole('button', { name: 'Додати коргі' })).toBeInTheDocument();
+      expect(getByRole('textbox', { name: 'Ім\'я песика' })).toBeInTheDocument();
+      expect(getByRole('textbox', { name: 'Ім\'я власника' })).toBeInTheDocument();
+      expect(getByRole('checkbox', { name: 'Я є власником/власницею цього коргі' })).toBeInTheDocument();
     });
   });
 });

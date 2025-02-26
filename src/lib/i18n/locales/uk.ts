@@ -7,6 +7,12 @@ export const dict = {
   FOOTER_COPYRIGHT: '© {{ year }} Створено Тетяною Гринько',
   HEADER_HOME_BUTTON: 'На головну',
   ADD_CORGI_PAGE_TITLE: 'Додати свого коргі',
+  ADD_CORGI_PAGE_OWNER_LABEL: 'Ім\'я власника',
+  ADD_CORGI_PAGE_OWNER_PLACEHOLDER: 'Марія Петренко',
+  ADD_CORGI_PAGE_NAME_LABEL: 'Ім\'я песика',
+  ADD_CORGI_PAGE_NAME_PLACEHOLDER: 'Пундик',
+  ADD_CORGI_PAGE_BUTTON_ADD_CORGI: 'Додати коргі',
+  ADD_CORGI_PAGE_CHECKBOX_LABEL: 'Я є власником/власницею цього коргі',
 };
 
 export type Dict = typeof dict;

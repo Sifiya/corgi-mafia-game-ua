@@ -31,12 +31,14 @@ const Home: Component = () => {
           size="lg"
           class="sm:basis-1/2 shrink-0 whitespace-nowrap"
         >
+          <i aria-hidden="true" class="text-lg ri-add-fill mr-1 -ml-2" />
           {i18n.t('MAIN_PAGE_BUTTON_ADD_CORGI')}
         </Button>
         <Button
           size="lg"
           class="sm:basis-1/2 shrink-0 whitespace-nowrap"
         >
+          <i aria-hidden="true" class="text-lg ri-play-large-fill mr-1 -ml-2" />
           {i18n.t('MAIN_PAGE_BUTTON_START')}
         </Button>
       </div>
