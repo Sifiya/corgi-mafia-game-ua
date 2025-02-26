@@ -7,4 +7,6 @@ export const dict: RawDictionary = {
   MAIN_PAGE_BUTTON_START: 'Start game',
   MAIN_PAGE_BUTTON_ADD_CORGI: 'Add your corgi',
   FOOTER_COPYRIGHT: '© {{ year }} Created by Tetyana Hrynko',
+  HEADER_HOME_BUTTON: 'Home',
+  ADD_CORGI_PAGE_TITLE: 'Add your corgi',
 };

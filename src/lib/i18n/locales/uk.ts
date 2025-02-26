@@ -5,6 +5,8 @@ export const dict = {
   MAIN_PAGE_BUTTON_START: 'Почати гру',
   MAIN_PAGE_BUTTON_ADD_CORGI: 'Додати свого коргі',
   FOOTER_COPYRIGHT: '© {{ year }} Створено Тетяною Гринько',
+  HEADER_HOME_BUTTON: 'На головну',
+  ADD_CORGI_PAGE_TITLE: 'Додати свого коргі',
 };
 
 export type Dict = typeof dict;

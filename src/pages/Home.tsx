@@ -25,6 +25,8 @@ const Home: Component = () => {
 
       <div class="flex gap-4 sm:flex-row flex-col w-full max-w-md">
         <Button
+          as="a"
+          href="/add"
           variant="secondary"
           size="lg"
           class="sm:basis-1/2 shrink-0 whitespace-nowrap"

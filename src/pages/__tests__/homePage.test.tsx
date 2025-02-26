@@ -20,7 +20,7 @@ describe('HomePage', () => {
       expect(getByRole('heading', { level: 1 })).toHaveTextContent('Вгадай песика по фото');
       expect(getByText('Гра, в якій потрібно вгадати ім\'я собаки по його світлині')).toBeInTheDocument();
       expect(getByRole('button', { name: 'Почати гру' })).toBeInTheDocument();
-      expect(getByRole('button', { name: 'Додати свого коргі' })).toBeInTheDocument();
+      expect(getByRole('link', { name: 'Додати свого коргі' })).toBeInTheDocument();
     });
   });
 });
