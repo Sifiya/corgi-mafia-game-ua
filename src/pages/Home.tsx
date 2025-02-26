@@ -1,16 +1,43 @@
 import { useTranslationContext } from '@/lib/i18n/context';
+import { cn } from '@/utils/class.utils';
+
 import { Button } from '@/components/ui/button';
+import { Paragraph } from '@/components/typography/paragraph';
+import { Header1 } from '@/components/typography/header1';
 import type { Component } from 'solid-js';
 
 const Home: Component = () => {
   const i18n = useTranslationContext();
   return (
-    <section class="flex flex-col gap-4">
-      <p>{i18n.t('MAIN_PAGE_PRE_TITLE')}</p>
-      <h1>{i18n.t('MAIN_PAGE_TITLE')}</h1>
-      <p>{i18n.t('MAIN_PAGE_DESCRIPTION')}</p>
-      <Button variant="secondary">{i18n.t('MAIN_PAGE_BUTTON_ADD_CORGI')}</Button>
-      <Button>{i18n.t('MAIN_PAGE_BUTTON_START')}</Button>
+    <section class={cn(
+      'flex flex-col gap-5 grow justify-center items-center',
+      'p-10'
+    )}>
+      <Paragraph variant="secondary" class="text-center">
+        {i18n.t('MAIN_PAGE_PRE_TITLE')}
+      </Paragraph>
+      <Header1 class="text-center text-7xl max-w-lg">
+        {i18n.t('MAIN_PAGE_TITLE')}
+      </Header1>
+      <Paragraph variant="primary" class="text-center">
+        {i18n.t('MAIN_PAGE_DESCRIPTION')}
+      </Paragraph>
+
+      <div class="flex gap-4 sm:flex-row flex-col w-full max-w-md">
+        <Button
+          variant="secondary"
+          size="lg"
+          class="sm:basis-1/2 shrink-0 whitespace-nowrap"
+        >
+          {i18n.t('MAIN_PAGE_BUTTON_ADD_CORGI')}
+        </Button>
+        <Button
+          size="lg"
+          class="sm:basis-1/2 shrink-0 whitespace-nowrap"
+        >
+          {i18n.t('MAIN_PAGE_BUTTON_START')}
+        </Button>
+      </div>
     </section>
   );
 };
