@@ -2,22 +2,15 @@ import { useTranslationContext } from '@/lib/i18n/context';
 import { useAddCorgi } from './useAddCorgi';
 import { Header1 } from '@/components/typography/header1';
 import { Header } from '@/features/header';
-import { TextFieldLabel, TextFieldRoot, TextField} from '@/components/ui/textfield';
+import { TextFieldLabel, TextFieldRoot, TextField, TextFieldDescription, TextFieldErrorMessage} from '@/components/ui/textfield';
 import { Button } from '@/components/ui/button';
 import type { Component } from 'solid-js';
 import { Checkbox, CheckboxControl, CheckboxLabel } from '@/components/ui/checkbox';
+import { Dictionary } from '@/lib/i18n/types';
 
 const AddCorgi: Component = () => {
   const i18n = useTranslationContext();
-  const {
-    corgiName,
-    ownerName,
-    isOwner,
-    setCorgiName,
-    setOwnerName,
-    setIsOwner,
-    handleSubmit,
-  } = useAddCorgi();
+  const { corgiName, ownerName, isOwner, setIsOwner, handleSubmit, isFormValid } = useAddCorgi();
 
   return (
     <>
@@ -29,34 +22,43 @@ const AddCorgi: Component = () => {
           onSubmit={handleSubmit}
           class="flex flex-col gap-4 w-full max-w-md"
         >
-          <TextFieldRoot class="flex flex-col gap-0.5">
+          <TextFieldRoot
+            class="flex flex-col gap-0.5"
+            validationState={(!corgiName.isDirty() || corgiName.state().isValid) ? 'valid' : 'invalid'}>
             <TextFieldLabel>
               {i18n.t('ADD_CORGI_PAGE_NAME_LABEL')}
             </TextFieldLabel>
             <TextField
-              value={corgiName()}
-              onInput={(e) => {
-                const target = e.target as HTMLInputElement;
-                setCorgiName(target.value);
-              }}
+              value={corgiName.value()}
+              onInput={corgiName.onValueChange}
               type="text"
               name="corgiName"
               placeholder={i18n.t('ADD_CORGI_PAGE_NAME_PLACEHOLDER')}
             />
+            {corgiName.isDirty() && !!corgiName.state().errorMessage && (
+              <TextFieldErrorMessage>
+                {i18n.t(corgiName.state().errorMessage as keyof Dictionary)}
+              </TextFieldErrorMessage>
+            )}
           </TextFieldRoot>
 
-          <TextFieldRoot class="flex flex-col gap-0.5">
+          <TextFieldRoot
+            class="flex flex-col gap-0.5"
+            validationState={(!ownerName.isDirty() || ownerName.state().isValid) ? 'valid' : 'invalid'}>
             <TextFieldLabel>{i18n.t('ADD_CORGI_PAGE_OWNER_LABEL')}</TextFieldLabel>
             <TextField
-              value={ownerName()}
-              onInput={(e) => {
-                const target = e.target as HTMLInputElement;
-                setOwnerName(target.value);
-              }}
+              value={ownerName.value()}
+              onInput={ownerName.onValueChange}
               type="text"
               name="ownerName"
               placeholder={i18n.t('ADD_CORGI_PAGE_OWNER_PLACEHOLDER')}
             />
+            <TextFieldDescription>{i18n.t('ADD_CORGI_PAGE_OWNER_DESCRIPTION')}</TextFieldDescription>
+            {ownerName.isDirty() && !!ownerName.state().errorMessage && (
+              <TextFieldErrorMessage>
+                {i18n.t(ownerName.state().errorMessage as keyof Dictionary)}
+              </TextFieldErrorMessage>
+            )}
           </TextFieldRoot>
 
           <Checkbox
@@ -70,7 +72,7 @@ const AddCorgi: Component = () => {
             </CheckboxLabel>
           </Checkbox>
 
-          <Button type="submit" class="mt-5">
+          <Button type="submit" class="mt-5" disabled={!isFormValid()}>
             {i18n.t('ADD_CORGI_PAGE_BUTTON_ADD_CORGI')}
           </Button>
         </form>

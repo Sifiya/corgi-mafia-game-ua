@@ -11,8 +11,10 @@ export const dict: RawDictionary = {
   ADD_CORGI_PAGE_TITLE: 'Add your corgi',
   ADD_CORGI_PAGE_OWNER_LABEL: 'Owner\'s name',
   ADD_CORGI_PAGE_OWNER_PLACEHOLDER: 'Maria Petrova',
+  ADD_CORGI_PAGE_OWNER_DESCRIPTION: 'This name will be displayed together with the corgi\'s name in the game',
   ADD_CORGI_PAGE_NAME_LABEL: 'Corgi\'s name',
   ADD_CORGI_PAGE_NAME_PLACEHOLDER: 'Pundyk',
   ADD_CORGI_PAGE_CHECKBOX_LABEL: 'I am the owner of this corgi',
   ADD_CORGI_PAGE_BUTTON_ADD_CORGI: 'Add corgi',
+  IS_REQUIRED_ERROR: 'This field is required'
 };
