@@ -65,5 +65,53 @@ describe('AddCorgiPage', () => {
       expect(getByRole('button', { name: 'Додати коргі' })).toBeDisabled();
     });
   });
+
+  test('should show error message if corgi name is too long', async () => {
+    const { findByRole, getByRole, getByText } = render(() => <WrappedAddCorgiPage />);
+    const corgiNameInput = await findByRole('textbox', { name: 'Ім\'я песика' });
+    await user.click(corgiNameInput);
+    await user.paste('a'.repeat(201));
+
+    await waitFor(() => {
+      expect(getByText('Максимальна довжина 200 символів')).toBeInTheDocument();
+      expect(getByRole('button', { name: 'Додати коргі' })).toBeDisabled();
+    });
+  });
+
+  test('should show error message if owner name is too long', async () => {
+    const { findByRole, getByRole, getByText } = render(() => <WrappedAddCorgiPage />);
+    const ownerNameInput = await findByRole('textbox', { name: 'Ім\'я власника' });
+    await user.click(ownerNameInput);
+    await user.paste('a'.repeat(201));
+
+    await waitFor(() => {
+      expect(getByText('Максимальна довжина 200 символів')).toBeInTheDocument();
+      expect(getByRole('button', { name: 'Додати коргі' })).toBeDisabled();
+    });
+  });
+
+  test('should show error message if corgi name contains forbidden characters', async () => {
+    const { findByRole, getByRole, getByText } = render(() => <WrappedAddCorgiPage />);
+    const corgiNameInput = await findByRole('textbox', { name: 'Ім\'я песика' });
+    await user.click(corgiNameInput);
+    await user.paste('Пундик@#$%');
+
+    await waitFor(() => {
+      expect(getByText('Допустимі символи: латиниця, кирилиця, цифри, апострофи, тире')).toBeInTheDocument();
+      expect(getByRole('button', { name: 'Додати коргі' })).toBeDisabled();
+    });
+  });
+
+  test('should show error message if owner name contains forbidden characters', async () => {
+    const { findByRole, getByRole, getByText } = render(() => <WrappedAddCorgiPage />);
+    const ownerNameInput = await findByRole('textbox', { name: 'Ім\'я власника' });
+    await user.click(ownerNameInput);
+    await user.paste('Марія@#$%');
+
+    await waitFor(() => {
+      expect(getByText('Допустимі символи: латиниця, кирилиця, цифри, апострофи, тире')).toBeInTheDocument();
+      expect(getByRole('button', { name: 'Додати коргі' })).toBeDisabled();
+    });
+  });
 });
 

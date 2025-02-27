@@ -16,5 +16,7 @@ export const dict: RawDictionary = {
   ADD_CORGI_PAGE_NAME_PLACEHOLDER: 'Pundyk',
   ADD_CORGI_PAGE_CHECKBOX_LABEL: 'I am the owner of this corgi',
   ADD_CORGI_PAGE_BUTTON_ADD_CORGI: 'Add corgi',
-  IS_REQUIRED_ERROR: 'This field is required'
+  IS_REQUIRED_ERROR: 'This field is required',
+  MAX_LENGTH_ERROR: 'Maximum length is 200 characters',
+  INVALID_CHARACTERS_ERROR: 'Allowed characters: latin, cyrillic, digits, apostrophes, hyphens',
 };

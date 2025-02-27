@@ -15,6 +15,8 @@ export const dict = {
   ADD_CORGI_PAGE_BUTTON_ADD_CORGI: 'Додати коргі',
   ADD_CORGI_PAGE_CHECKBOX_LABEL: 'Я є власником/власницею цього коргі',
   IS_REQUIRED_ERROR: 'Це поле є обовʼязковим',
+  MAX_LENGTH_ERROR: 'Максимальна довжина 200 символів',
+  INVALID_CHARACTERS_ERROR: 'Допустимі символи: латиниця, кирилиця, цифри, апострофи, тире',
 };
 
 export type Dict = typeof dict;
