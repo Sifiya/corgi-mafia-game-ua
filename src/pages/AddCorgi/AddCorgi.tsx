@@ -4,9 +4,11 @@ import { Header1 } from '@/components/typography/header1';
 import { Header } from '@/features/header';
 import { TextFieldLabel, TextFieldRoot, TextField, TextFieldDescription, TextFieldErrorMessage} from '@/components/ui/textfield';
 import { Button } from '@/components/ui/button';
-import type { Component } from 'solid-js';
 import { Checkbox, CheckboxControl, CheckboxLabel } from '@/components/ui/checkbox';
 import { Dictionary } from '@/lib/i18n/types';
+import { MultipleImagesInput } from '@/components/ui/multipleImagesInput';
+
+import type { Component } from 'solid-js';
 
 const AddCorgi: Component = () => {
   const i18n = useTranslationContext();
@@ -22,6 +24,8 @@ const AddCorgi: Component = () => {
           onSubmit={handleSubmit}
           class="flex flex-col gap-4 w-full max-w-md"
         >
+          <MultipleImagesInput />
+
           <TextFieldRoot
             class="flex flex-col gap-0.5"
             validationState={(!corgiName.isDirty() || corgiName.state().isValid) ? 'valid' : 'invalid'}>
