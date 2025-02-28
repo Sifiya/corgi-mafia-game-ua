@@ -6,13 +6,18 @@ import { TextFieldLabel, TextFieldRoot, TextField, TextFieldDescription, TextFie
 import { Button } from '@/components/ui/button';
 import { Checkbox, CheckboxControl, CheckboxLabel } from '@/components/ui/checkbox';
 import { Dictionary } from '@/lib/i18n/types';
-import { MultipleImagesInput } from '@/components/ui/multipleImagesInput';
+import { MultipleImagesInput } from '@/features/multipleImagesInput/multipleImagesInput';
 
 import type { Component } from 'solid-js';
 
 const AddCorgi: Component = () => {
   const i18n = useTranslationContext();
   const { corgiName, ownerName, isOwner, setIsOwner, handleSubmit, isFormValid } = useAddCorgi();
+
+  // TODO: save images to the database
+  const handleSave = (files: File[]) => {
+    console.log(files);
+  };
 
   return (
     <>
@@ -24,7 +29,7 @@ const AddCorgi: Component = () => {
           onSubmit={handleSubmit}
           class="flex flex-col gap-4 w-full max-w-md"
         >
-          <MultipleImagesInput />
+          <MultipleImagesInput onSave={handleSave} />
 
           <TextFieldRoot
             class="flex flex-col gap-0.5"

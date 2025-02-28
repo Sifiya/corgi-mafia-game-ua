@@ -1,20 +1,24 @@
 import './cropper.css';
-import { createSignal, onMount, onCleanup } from 'solid-js';
+import { createSignal, onMount, onCleanup, Show } from 'solid-js';
 import { getImageCoverDimensions, getMaxDimensions } from './utils';
 import { cn } from '@/utils/class.utils';
 import { throttle } from 'lodash';
 import { Button } from '@/components/ui/button';
+import { Portal } from 'solid-js/web';
 import type { Component } from 'solid-js';
+import { ImageInput } from '@/components/ui/imageInput';
 
 type CropperProps = {
   maxWidth?: number;
   maxHeight?: number;
+  onSave: (blob: Blob) => void;
 }
 
 export const Cropper: Component<CropperProps> = (props) => {
   const MAX_WIDTH = props.maxWidth || 800;
   const MAX_HEIGHT = props.maxHeight || 800;
 
+  const [isCropping, setIsCropping] = createSignal(false);
   const [movingState, setMovingState] = createSignal({
     x: 0,
     y: 0,
@@ -63,15 +67,19 @@ export const Cropper: Component<CropperProps> = (props) => {
     reader.readAsDataURL(file);
   };
 
-  const handleFileSelect = (event: Event) => {
-    const input = event.target as HTMLInputElement;
-    if (!input.files?.length) return;
-
-    const file = input.files[0];
-    if (!file.type.startsWith('image/')) {
-      alert('Please select an image file');
-      return;
-    }
+  const handleFileSelect = async (file: File) => {
+    setIsCropping(true);
+    await new Promise(resolve => {
+      const checkRefs = () => {
+        if (cropperContainerRef && canvasRef) {
+          ctx = canvasRef.getContext('2d');
+          resolve(undefined);
+          return;
+        }
+        requestAnimationFrame(checkRefs);
+      };
+      checkRefs();
+    });
 
     loadImage(file);
   };
@@ -168,72 +176,68 @@ export const Cropper: Component<CropperProps> = (props) => {
     tempCanvas.toBlob((blob) => {
       if (!blob) return;
 
-      // Create download link
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'cropped-image.jpg';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
+      props.onSave(blob);
+      setIsCropping(false);
+    }, 'image/png', 1);
+  };
 
-      // Alternatively, you can use the blob for upload or other purposes
-      // For example: uploadImage(blob);
-    }, 'image/jpeg', 0.95);
+  const handleCancel = () => {
+    if (imageInputRef) {
+      imageInputRef.value = '';
+    }
+    setIsCropping(false);
   };
 
   return (
     <div class="flex flex-col gap-4">
-      <label class="cursor-pointer">
-        <Button as="span" class="flex items-center gap-1.5">
-          <i class="ri-image-add-fill text-xl" />
-          Вибрати зображення
-        </Button>
-        <input
-          class="hidden"
-          ref={imageInputRef}
-          type="file"
-          accept="image/*"
-          onChange={handleFileSelect}
-        />
-      </label>
-      <div class={cn(
-        'flex flex-col gap-3',
-      )}>
-        <div
-          ref={cropperContainerRef}
-          class="relative overflow-hidden w-sm aspect-square cursor-grab rounded-md"
-          onMouseDown={handleMouseDown}
-          onMouseMove={handleMouseMove}
-          onTouchStart={handleMouseDown}
-          onTouchMove={handleMouseMove}
-        >
-          <div
-            class={cn(
-              'uwu-overlay z-10 rounded-full',
-              'h-[calc(100%-10px)] w-[calc(100%-10px)]',
-              'absolute inset-1/2 -translate-x-1/2 -translate-y-1/2',
-            )} />
-          <canvas
-            ref={canvasRef}
-            class="absolute"
-            style={{
-              top: 0,
-              left: 0,
-            }}
-          />
-        </div>
+      <ImageInput onInput={handleFileSelect} ref={imageInputRef} />
 
-        <div class="grid grid-cols-2 gap-2">
-          <Button variant="secondary">
-            Скасувати
-          </Button>
-          <Button onClick={handleSave}>
-            Зберегти
-          </Button>
-        </div>
-      </div>
+      <Portal>
+        <Show when={isCropping()}>
+          <div
+            class="fixed inset-0 bg-black/30 z-50 flex items-center justify-center"
+            onMouseDown={handleCancel}
+          >
+            <div
+              class="flex flex-col gap-3 bg-background rounded-lg p-4 max-w-full"
+              onMouseDown={(e) => e.stopPropagation()}
+            >
+              <div
+                ref={cropperContainerRef}
+                class="relative overflow-hidden w-sm max-w-full aspect-square cursor-grab rounded-md"
+                onMouseDown={handleMouseDown}
+                onMouseMove={handleMouseMove}
+                onTouchStart={handleMouseDown}
+                onTouchMove={handleMouseMove}
+              >
+                <div
+                  class={cn(
+                    'uwu-overlay z-10 rounded-full',
+                    'h-[calc(100%-10px)] w-[calc(100%-10px)]',
+                    'absolute inset-1/2 -translate-x-1/2 -translate-y-1/2',
+                  )} />
+                <canvas
+                  ref={canvasRef}
+                  class="absolute"
+                  style={{
+                    top: 0,
+                    left: 0,
+                  }}
+                />
+              </div>
+
+              <div class="grid grid-cols-2 gap-2">
+                <Button variant="secondary" onClick={handleCancel}>
+                  Скасувати
+                </Button>
+                <Button onClick={handleSave}>
+                  Зберегти
+                </Button>
+              </div>
+            </div>
+          </div>
+        </Show>
+      </Portal>
     </div>
   );
 };

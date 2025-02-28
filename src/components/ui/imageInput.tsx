@@ -3,10 +3,10 @@ import { cn } from '@/utils/class.utils';
 type ImageInputProps = {
   class?: string;
   onInput: (file: File) => void;
+  ref?: HTMLInputElement;
 };
 
 export const ImageInput = (props: ImageInputProps) => {
-
   return (
     <label class={cn(
       'w-32 h-32',
@@ -22,15 +22,21 @@ export const ImageInput = (props: ImageInputProps) => {
         <i class="ri-add-fill absolute left-1/2 top-1/2 -translate-x-[65%] -translate-y-[30%] text-5xl text-background" />
       </div>
       <input
+        ref={props.ref}
         type="file"
         accept="image/png, image/jpeg"
         capture="environment"
         class="hidden"
         onChange={(event) => {
-          const file = (event.target as HTMLInputElement).files?.[0];
-          if (file) {
-            props.onInput(file);
+          const input = event.target as HTMLInputElement;
+          if (!input.files?.length) return;
+
+          const file = input.files[0];
+          if (!file.type.startsWith('image/')) {
+            return;
           }
+
+          props.onInput(file);
         }}
       />
     </label>
