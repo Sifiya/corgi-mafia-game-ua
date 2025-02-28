@@ -1,4 +1,5 @@
 import { createSignal, Show } from 'solid-js';
+import { useTranslationContext } from '@/lib/i18n/context';
 import { Image } from '@/components/ui/image';
 import { Cropper } from '../cropper/Cropper';
 import type { Component } from 'solid-js';
@@ -8,6 +9,7 @@ type MultipleImagesInputProps = {
 }
 
 export const MultipleImagesInput: Component<MultipleImagesInputProps> = (props) => {
+  const i18n = useTranslationContext();
   const [images, setImages] = createSignal<File[]>([]);
 
   const handleAdd = (blob: Blob) => {
@@ -25,7 +27,11 @@ export const MultipleImagesInput: Component<MultipleImagesInputProps> = (props) 
           <Image src={URL.createObjectURL(image)} width={120} height={120} class="aspect-square object-cover" />
         ))}
       </Show>
-      <Cropper onSave={handleAdd} />
+      <Cropper
+        onSave={handleAdd}
+        cancelButtonText={i18n.t('ADD_CORGI_PAGE_CANCEL_BUTTON_TEXT')}
+        saveButtonText={i18n.t('ADD_CORGI_PAGE_SAVE_BUTTON_TEXT')}
+      />
     </div>
   );
 };

@@ -17,6 +17,9 @@ export const dict = {
   IS_REQUIRED_ERROR: 'Це поле є обовʼязковим',
   MAX_LENGTH_ERROR: 'Максимальна довжина 200 символів',
   INVALID_CHARACTERS_ERROR: 'Допустимі символи: латиниця, кирилиця, цифри, апострофи, тире',
+  ADD_CORGI_PAGE_CANCEL_BUTTON_TEXT: 'Скасувати',
+  ADD_CORGI_PAGE_SAVE_BUTTON_TEXT: 'Зберегти',
+  MAX_IMAGES_ERROR: 'Максимальна кількість зображень 5',
 };
 
 export type Dict = typeof dict;

@@ -12,6 +12,8 @@ type CropperProps = {
   maxWidth?: number;
   maxHeight?: number;
   onSave: (blob: Blob) => void;
+  cancelButtonText?: string;
+  saveButtonText?: string;
 }
 
 export const Cropper: Component<CropperProps> = (props) => {
@@ -228,10 +230,10 @@ export const Cropper: Component<CropperProps> = (props) => {
 
               <div class="grid grid-cols-2 gap-2">
                 <Button variant="secondary" onClick={handleCancel}>
-                  Скасувати
+                  {props.cancelButtonText || 'Скасувати'}
                 </Button>
                 <Button onClick={handleSave}>
-                  Зберегти
+                  {props.saveButtonText || 'Зберегти'}
                 </Button>
               </div>
             </div>

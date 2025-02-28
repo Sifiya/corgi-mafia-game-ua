@@ -35,3 +35,36 @@ export const useTextField = (props: UseTextFieldProps) => {
     isDirty,
   };
 };
+
+type UseMultipleImagesFieldProps = {
+  checkValidity?: (value: File[]) => {
+    isValid: boolean;
+    errorMessage?: string;
+  };
+};
+
+export const useMultipleImagesField = (props: UseMultipleImagesFieldProps) => {
+  const [images, setImages] = createSignal<File[]>([]);
+  const [isDirty, setIsDirty] = createSignal(false);
+  const [state, setState] = createSignal<{
+    isValid: boolean;
+    errorMessage?: string;
+  }>(
+    props.checkValidity?.(images()) || { isValid: true },
+  );
+
+  const onChange = (files: File[]) => {
+    setImages(files);
+    setIsDirty(true);
+    if (props.checkValidity) {
+      setState(props.checkValidity(files));
+    }
+  };
+
+  return {
+    images,
+    onChange,
+    state,
+    isDirty,
+  };
+};

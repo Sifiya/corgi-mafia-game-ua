@@ -1,5 +1,5 @@
 import { createSignal } from 'solid-js';
-import { useTextField } from '@/utils/form.utils';
+import { useTextField, useMultipleImagesField } from '@/utils/form.utils';
 import { z } from 'zod';
 import { validate } from '@/lib/zod/utils';
 
@@ -11,6 +11,9 @@ const ownerNameSchema = z.string()
   .min(1, { message: 'IS_REQUIRED_ERROR' })
   .max(200, { message: 'MAX_LENGTH_ERROR' })
   .regex(/^[a-zA-Zа-яА-ЯіІїЇєЄ0-9'-\s]+$/, { message: 'INVALID_CHARACTERS_ERROR' });
+const imagesSchema = z.array(z.instanceof(File))
+  .nonempty({ message: 'IS_REQUIRED_ERROR' })
+  .max(5, { message: 'MAX_IMAGES_ERROR' });
 
 export const useAddCorgi = () => {
   const corgiName = useTextField({
@@ -22,20 +25,29 @@ export const useAddCorgi = () => {
     initialValue: '',
     checkValidity: (value) => validate(ownerNameSchema, value),
   });
+  const images = useMultipleImagesField({
+    checkValidity: (value) => validate(imagesSchema, value),
+  });
   const [isOwner, setIsOwner] = createSignal(false);
 
   const isFormValid = () => {
-    return corgiName.state().isValid && ownerName.state().isValid;
+    return (
+      corgiName.state().isValid &&
+      ownerName.state().isValid &&
+      images.state().isValid &&
+      isOwner()
+    );
   };
 
   const handleSubmit = (e: SubmitEvent) => {
     e.preventDefault();
-    console.log(corgiName.value(), ownerName.value(), isOwner());
+    console.log(corgiName.value(), ownerName.value(), isOwner(), images.images());
   };
 
   return {
     corgiName,
     ownerName,
+    images,
     isOwner,
     setIsOwner,
     handleSubmit,
