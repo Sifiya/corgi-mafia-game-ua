@@ -1,7 +1,7 @@
 const MAX_WIDTH = 600;
 const MAX_HEIGHT = 600;
 
-export const getImageDimensions = (
+export const getImageCoverDimensions = (
   image: HTMLImageElement,
   maxWidth: number = MAX_WIDTH,
   maxHeight: number = MAX_HEIGHT,
@@ -15,7 +15,7 @@ export const getImageDimensions = (
     newHeight = (height * maxWidth) / width;
   }
 
-  if (newHeight > maxHeight) {
+  if (newHeight < maxHeight) {
     newHeight = maxHeight;
     newWidth = (width * maxHeight) / height;
   }
