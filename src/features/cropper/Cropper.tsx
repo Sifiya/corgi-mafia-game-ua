@@ -125,38 +125,57 @@ export const Cropper: Component = () => {
   });
 
   const handleSave = () => {
-    if (!canvasRef) return;
-
-    const exportCanvas = document.createElement('canvas');
-    const ctx = exportCanvas.getContext('2d');
-    if (!ctx || !cropperContainerRef) return;
-
-    const cropWidth = cropperContainerRef.offsetWidth;
-    const cropHeight = cropperContainerRef.offsetHeight;
-    exportCanvas.width = cropWidth;
-    exportCanvas.height = cropHeight;
-
+    if (!originalImage || !canvasRef || !cropperContainerRef) return;
+    // Get the current position of the canvas
     const canvasTop = parseFloat(canvasRef.style.top) || 0;
     const canvasLeft = parseFloat(canvasRef.style.left) || 0;
 
-    ctx.drawImage(
-      canvasRef,
-      -canvasLeft,
-      -canvasTop,
-      cropWidth,
-      cropHeight,
-      0,
-      0,
-      cropWidth,
-      cropHeight,
+    // Calculate the ratio between original image and displayed image
+    const scaleX = originalImage.naturalWidth / canvasRef.width;
+    const scaleY = originalImage.naturalHeight / canvasRef.height;
+
+    // Calculate the crop area in the original image coordinates
+    const sourceCropX = (0 - canvasLeft) * scaleX;
+    const sourceCropY = (0 - canvasTop) * scaleY;
+    const sourceCropWidth = cropperContainerRef.offsetWidth * scaleX;
+    const sourceCropHeight = cropperContainerRef.offsetHeight * scaleY;
+
+    // Create a temporary canvas for the cropped image
+    const tempCanvas = document.createElement('canvas');
+    const tempCtx = tempCanvas.getContext('2d');
+
+    if (!tempCtx) return;
+
+    const outputWidth = Math.min(sourceCropWidth, 800);
+    const outputHeight = Math.min(sourceCropHeight, 800);
+
+    tempCanvas.width = outputWidth;
+    tempCanvas.height = outputHeight;
+
+    // Draw the cropped portion of the original image
+    tempCtx.drawImage(
+      originalImage,
+      sourceCropX, sourceCropY, sourceCropWidth, sourceCropHeight,
+      0, 0, outputWidth, outputHeight
     );
 
-    const croppedImage = exportCanvas.toDataURL('image/png');
+    // Convert to blob and download or use as needed
+    tempCanvas.toBlob((blob) => {
+      if (!blob) return;
 
-    const link = document.createElement('a');
-    link.download = 'cropped.png';
-    link.href = croppedImage;
-    link.click();
+      // Create download link
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'cropped-image.jpg';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      // Alternatively, you can use the blob for upload or other purposes
+      // For example: uploadImage(blob);
+    }, 'image/jpeg', 0.95);
   };
 
   return (
