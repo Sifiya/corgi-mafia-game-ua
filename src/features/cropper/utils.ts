@@ -22,3 +22,25 @@ export const getImageCoverDimensions = (
 
   return { width: newWidth, height: newHeight };
 };
+
+export const getMaxDimensions = (
+  width: number,
+  height: number,
+  maxWidth: number = MAX_WIDTH,
+  maxHeight: number = MAX_HEIGHT,
+) => {
+  let newWidth = width;
+  let newHeight = height;
+
+  if (width > maxWidth) {
+    newWidth = maxWidth;
+    newHeight = (height * maxWidth) / width;
+  }
+
+  if (height > maxHeight) {
+    newHeight = maxHeight;
+    newWidth = (width * maxHeight) / height;
+  }
+
+  return { width: newWidth, height: newHeight };
+};

@@ -1,13 +1,20 @@
 import './cropper.css';
 import { createSignal, onMount, onCleanup } from 'solid-js';
-import { getImageCoverDimensions } from './utils';
+import { getImageCoverDimensions, getMaxDimensions } from './utils';
 import { cn } from '@/utils/class.utils';
 import { throttle } from 'lodash';
 import { Button } from '@/components/ui/button';
 import type { Component } from 'solid-js';
 
-export const Cropper: Component = () => {
-  const [image, setImage] = createSignal<File | null>(null);
+type CropperProps = {
+  maxWidth?: number;
+  maxHeight?: number;
+}
+
+export const Cropper: Component<CropperProps> = (props) => {
+  const MAX_WIDTH = props.maxWidth || 800;
+  const MAX_HEIGHT = props.maxHeight || 800;
+
   const [movingState, setMovingState] = createSignal({
     x: 0,
     y: 0,
@@ -66,7 +73,6 @@ export const Cropper: Component = () => {
       return;
     }
 
-    setImage(file);
     loadImage(file);
   };
 
@@ -126,33 +132,32 @@ export const Cropper: Component = () => {
 
   const handleSave = () => {
     if (!originalImage || !canvasRef || !cropperContainerRef) return;
-    // Get the current position of the canvas
     const canvasTop = parseFloat(canvasRef.style.top) || 0;
     const canvasLeft = parseFloat(canvasRef.style.left) || 0;
 
-    // Calculate the ratio between original image and displayed image
     const scaleX = originalImage.naturalWidth / canvasRef.width;
     const scaleY = originalImage.naturalHeight / canvasRef.height;
 
-    // Calculate the crop area in the original image coordinates
     const sourceCropX = (0 - canvasLeft) * scaleX;
     const sourceCropY = (0 - canvasTop) * scaleY;
     const sourceCropWidth = cropperContainerRef.offsetWidth * scaleX;
     const sourceCropHeight = cropperContainerRef.offsetHeight * scaleY;
 
-    // Create a temporary canvas for the cropped image
     const tempCanvas = document.createElement('canvas');
     const tempCtx = tempCanvas.getContext('2d');
 
     if (!tempCtx) return;
 
-    const outputWidth = Math.min(sourceCropWidth, 800);
-    const outputHeight = Math.min(sourceCropHeight, 800);
+    const { width: outputWidth, height: outputHeight } = getMaxDimensions(
+      sourceCropWidth,
+      sourceCropHeight,
+      MAX_WIDTH,
+      MAX_HEIGHT
+    );
 
     tempCanvas.width = outputWidth;
     tempCanvas.height = outputHeight;
 
-    // Draw the cropped portion of the original image
     tempCtx.drawImage(
       originalImage,
       sourceCropX, sourceCropY, sourceCropWidth, sourceCropHeight,
