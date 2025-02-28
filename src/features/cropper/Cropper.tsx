@@ -70,7 +70,6 @@ export const Cropper: Component = () => {
     loadImage(file);
   };
 
-  // Mouse down / Touch start
   const handleMouseDown = (e: MouseEvent | TouchEvent) => {
     if (!canvasRef || !ctx) return;
 
@@ -84,7 +83,6 @@ export const Cropper: Component = () => {
     });
   };
 
-  // Mouse move / Touch move
   const handleMouseMove = throttle((e: MouseEvent | TouchEvent) => {
     if (!canvasRef || !movingState().isDragging || !cropperContainerRef) return;
     e.preventDefault();
@@ -114,7 +112,6 @@ export const Cropper: Component = () => {
     });
   }, 30);
 
-  // Mouse up / Touch end
   const handleMouseUp = () => {
     setMovingState(prev => ({ ...prev, isDragging: false }));
   };
@@ -126,6 +123,41 @@ export const Cropper: Component = () => {
     document.body.removeEventListener('mouseup', handleMouseUp);
     document.body.removeEventListener('touchend', handleMouseUp);
   });
+
+  const handleSave = () => {
+    if (!canvasRef) return;
+
+    const exportCanvas = document.createElement('canvas');
+    const ctx = exportCanvas.getContext('2d');
+    if (!ctx || !cropperContainerRef) return;
+
+    const cropWidth = cropperContainerRef.offsetWidth;
+    const cropHeight = cropperContainerRef.offsetHeight;
+    exportCanvas.width = cropWidth;
+    exportCanvas.height = cropHeight;
+
+    const canvasTop = parseFloat(canvasRef.style.top) || 0;
+    const canvasLeft = parseFloat(canvasRef.style.left) || 0;
+
+    ctx.drawImage(
+      canvasRef,
+      -canvasLeft,
+      -canvasTop,
+      cropWidth,
+      cropHeight,
+      0,
+      0,
+      cropWidth,
+      cropHeight,
+    );
+
+    const croppedImage = exportCanvas.toDataURL('image/png');
+
+    const link = document.createElement('a');
+    link.download = 'cropped.png';
+    link.href = croppedImage;
+    link.click();
+  };
 
   return (
     <div class="flex flex-col gap-4">
@@ -173,7 +205,7 @@ export const Cropper: Component = () => {
           <Button variant="secondary">
             Скасувати
           </Button>
-          <Button>
+          <Button onClick={handleSave}>
             Зберегти
           </Button>
         </div>
