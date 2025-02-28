@@ -8,6 +8,7 @@ import { Router, Route } from '@solidjs/router';
 
 const Home = lazy(() => import('./pages/Home'));
 const AddCorgi = lazy(() => import('./pages/AddCorgi/AddCorgi'));
+const CropperPage = lazy(() => import('./pages/CropperPage'));
 const root = document.getElementById('root');
 
 if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
@@ -21,6 +22,8 @@ render(
     <Router root={App}>
       <Route path="/" component={Home} />
       <Route path="/add" component={AddCorgi} />
+      {/* TODO: delete page when cropper is ready */}
+      <Route path="/cropper" component={CropperPage} />
     </Router>
   ),
   root!,
