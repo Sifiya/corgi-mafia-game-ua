@@ -86,7 +86,7 @@ export const Cropper: Component = () => {
 
   // Mouse move / Touch move
   const handleMouseMove = throttle((e: MouseEvent | TouchEvent) => {
-    if (!canvasRef || !movingState().isDragging) return;
+    if (!canvasRef || !movingState().isDragging || !cropperContainerRef) return;
     e.preventDefault();
 
     const clientX = e instanceof MouseEvent ? e.clientX : e.touches[0].clientX;
@@ -97,15 +97,22 @@ export const Cropper: Component = () => {
 
     const prevTop = parseFloat(canvasRef.style.top);
     const prevLeft = parseFloat(canvasRef.style.left);
-    canvasRef.style.top = `${prevTop + deltaY}px`;
-    canvasRef.style.left = `${prevLeft + deltaX}px`;
+
+    const maxBottom = cropperContainerRef.offsetHeight - canvasRef.height;
+    const maxRight = cropperContainerRef.offsetWidth - canvasRef.width;
+
+    const newTop = Math.min(0, Math.max(maxBottom, prevTop + deltaY));
+    const newLeft = Math.min(0, Math.max(maxRight, prevLeft + deltaX));
+
+    canvasRef.style.top = `${newTop}px`;
+    canvasRef.style.left = `${newLeft}px`;
 
     setMovingState({
       x: clientX,
       y: clientY,
       isDragging: true,
     });
-  }, 50);
+  }, 30);
 
   // Mouse up / Touch end
   const handleMouseUp = () => {
