@@ -1,9 +1,48 @@
-import { createSignal } from 'solid-js';
+import { onMount } from 'solid-js';
+import { getImageDimensions } from './utils';
 import { Button } from '@/components/ui/button';
 import type { Component } from 'solid-js';
 
 export const Cropper: Component = () => {
-  const [imageFile, setImageFile] = createSignal<File | null>(null);
+
+  let imageInputRef: HTMLInputElement | undefined;
+  let imagePreviewRef: HTMLImageElement | undefined;
+  let originalImage: HTMLImageElement | undefined;
+  let canvas: HTMLCanvasElement | undefined;
+  let ctx: CanvasRenderingContext2D | null = null;
+
+  onMount(() => {
+    if (canvas) {
+      ctx = canvas.getContext('2d');
+    }
+  });
+
+  const loadImage = (file: File) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      // show preview
+      if (imagePreviewRef) {
+        imagePreviewRef.src = reader.result as string;
+      }
+
+      originalImage = new Image();
+      originalImage.onload = () => {
+        if (!canvas || !ctx || !originalImage) {
+          return;
+        }
+
+        const { width, height } = getImageDimensions(originalImage);
+
+        canvas.width = width;
+        canvas.height = height;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(originalImage, 0, 0, canvas.width, canvas.height);
+      };
+      originalImage.src = reader.result as string;
+    };
+    reader.readAsDataURL(file);
+  };
 
   const handleFileSelect = (event: Event) => {
     const input = event.target as HTMLInputElement;
@@ -15,18 +54,22 @@ export const Cropper: Component = () => {
       return;
     }
 
-    setImageFile(file);
+    loadImage(file);
   };
 
   return (
     <div class="flex flex-col gap-4">
       <input
+        ref={imageInputRef}
         type="file"
         accept="image/*"
         onChange={handleFileSelect}
       />
       <div class="flex flex-col gap-3">
-        <canvas class="bg-amber-500" />
+        <canvas
+          ref={canvas}
+          class="bg-amber-500"
+        />
         <div class="grid grid-cols-2 gap-2">
           <Button variant="secondary">
             Скасувати
@@ -37,15 +80,14 @@ export const Cropper: Component = () => {
         </div>
       </div>
 
-      {imageFile() && (
-        <img
-          src={URL.createObjectURL(imageFile() as Blob)}
-          alt="preview"
-          width={120}
-          height={120}
-          class="object-cover"
-        />
-      )}
+      <img
+        ref={imagePreviewRef}
+        src="/images/corgi.jpg"
+        alt="preview"
+        width={120}
+        height={120}
+        class="object-cover"
+      />
     </div>
   );
 };
