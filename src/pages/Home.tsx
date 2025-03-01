@@ -35,6 +35,8 @@ const Home: Component = () => {
           {i18n.t('MAIN_PAGE_BUTTON_ADD_CORGI')}
         </Button>
         <Button
+          as="a"
+          href="/game"
           size="lg"
           class="sm:basis-1/2 shrink-0 whitespace-nowrap"
         >

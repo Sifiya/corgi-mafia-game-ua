@@ -73,7 +73,7 @@ describe('AddCorgiPage', () => {
     await user.paste('a'.repeat(201));
 
     await waitFor(() => {
-      expect(getByText('Максимальна довжина 200 символів')).toBeInTheDocument();
+      expect(getByText('Максимальна довжина 60 символів')).toBeInTheDocument();
       expect(getByRole('button', { name: 'Додати коргі' })).toBeDisabled();
     });
   });
@@ -85,7 +85,7 @@ describe('AddCorgiPage', () => {
     await user.paste('a'.repeat(201));
 
     await waitFor(() => {
-      expect(getByText('Максимальна довжина 200 символів')).toBeInTheDocument();
+      expect(getByText('Максимальна довжина 60 символів')).toBeInTheDocument();
       expect(getByRole('button', { name: 'Додати коргі' })).toBeDisabled();
     });
   });

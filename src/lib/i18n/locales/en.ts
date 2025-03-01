@@ -17,7 +17,7 @@ export const dict: RawDictionary = {
   ADD_CORGI_PAGE_CHECKBOX_LABEL: 'I am the owner of this corgi',
   ADD_CORGI_PAGE_BUTTON_ADD_CORGI: 'Add corgi',
   IS_REQUIRED_ERROR: 'This field is required',
-  MAX_LENGTH_ERROR: 'Maximum length is 200 characters',
+  MAX_LENGTH_ERROR: 'Maximum length is 60 characters',
   INVALID_CHARACTERS_ERROR: 'Allowed characters: latin, cyrillic, digits, apostrophes, hyphens',
   ADD_CORGI_PAGE_CANCEL_BUTTON_TEXT: 'Cancel',
   ADD_CORGI_PAGE_SAVE_BUTTON_TEXT: 'Save',
@@ -27,4 +27,8 @@ export const dict: RawDictionary = {
   ADD_SUCCESS_PAGE_DESCRIPTION: 'Your corgi has been added to the game!',
   ADD_SUCCESS_PAGE_BUTTON_HOME: 'Go to home',
   ADD_SUCCESS_PAGE_BUTTON_ADD_MORE: 'Add another corgi',
+  GAME_STAGE_INPUT_NAME_LABEL: 'Enter your name',
+  GAME_STAGE_INPUT_NAME_PLACEHOLDER: 'John Doe',
+  GAME_STAGE_INPUT_NAME_DESCRIPTION: 'This name will be displayed in the results table',
+  GAME_STAGE_INPUT_NAME_BUTTON: 'Start game',
 };

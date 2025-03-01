@@ -15,7 +15,7 @@ export const dict = {
   ADD_CORGI_PAGE_BUTTON_ADD_CORGI: 'Додати коргі',
   ADD_CORGI_PAGE_CHECKBOX_LABEL: 'Я є власником/власницею цього коргі',
   IS_REQUIRED_ERROR: 'Це поле є обовʼязковим',
-  MAX_LENGTH_ERROR: 'Максимальна довжина 200 символів',
+  MAX_LENGTH_ERROR: 'Максимальна довжина 60 символів',
   INVALID_CHARACTERS_ERROR: 'Допустимі символи: латиниця, кирилиця, цифри, апострофи, тире',
   ADD_CORGI_PAGE_CANCEL_BUTTON_TEXT: 'Скасувати',
   ADD_CORGI_PAGE_SAVE_BUTTON_TEXT: 'Зберегти',
@@ -25,6 +25,10 @@ export const dict = {
   ADD_SUCCESS_PAGE_DESCRIPTION: 'Вашого песика додано до гри!',
   ADD_SUCCESS_PAGE_BUTTON_HOME: 'Повернутися на головну',
   ADD_SUCCESS_PAGE_BUTTON_ADD_MORE: 'Додати ще песика',
+  GAME_STAGE_INPUT_NAME_LABEL: 'Введіть ваше ім\'я',
+  GAME_STAGE_INPUT_NAME_PLACEHOLDER: 'Схвильований мухомор',
+  GAME_STAGE_INPUT_NAME_DESCRIPTION: 'Це ім\'я відображатиметься в таблиці результатів',
+  GAME_STAGE_INPUT_NAME_BUTTON: 'Почати гру',
 };
 
 export type Dict = typeof dict;
