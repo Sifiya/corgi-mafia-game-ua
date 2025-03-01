@@ -18,7 +18,7 @@ const paragraphVariants = cva(
 );
 
 type ParagraphProps = {
-  children: string;
+  children: JSX.Element;
   style?: JSX.CSSProperties;
   class?: string;
   variant?: 'primary' | 'secondary';

@@ -32,4 +32,6 @@ export const dict: RawDictionary = {
   GAME_STAGE_INPUT_NAME_DESCRIPTION: 'This name will be displayed in the results table',
   GAME_STAGE_INPUT_NAME_BUTTON: 'Start game',
   GAME_STAGE_QUIZ_TITLE: 'Let\'s go!',
+  FINISH_GAME_BUTTON: 'Send result',
+  FINISH_GAME_RESULT_TITLE: 'Your result:',
 };

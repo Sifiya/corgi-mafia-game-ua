@@ -30,6 +30,8 @@ export const dict = {
   GAME_STAGE_INPUT_NAME_DESCRIPTION: 'Це ім\'я відображатиметься в таблиці результатів',
   GAME_STAGE_INPUT_NAME_BUTTON: 'Почати гру',
   GAME_STAGE_QUIZ_TITLE: 'Погнали!',
+  FINISH_GAME_BUTTON: 'Відправити результат',
+  FINISH_GAME_RESULT_TITLE: 'Ваш результат:',
 };
 
 export type Dict = typeof dict;
