@@ -179,6 +179,10 @@ export const Cropper: Component<CropperProps> = (props) => {
       if (!blob) return;
       props.onSave(blob);
       setIsCropping(false);
+
+      if (imageInputRef) {
+        imageInputRef.value = '';
+      }
     });
   };
 
