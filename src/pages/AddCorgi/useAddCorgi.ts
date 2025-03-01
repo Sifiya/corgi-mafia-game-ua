@@ -1,5 +1,6 @@
 import { createSignal } from 'solid-js';
 import { useTextField, useMultipleImagesField } from '@/utils/form.utils';
+import { uploadImages } from './uploadImages';
 import { z } from 'zod';
 import { validate } from '@/lib/zod/utils';
 
@@ -39,8 +40,13 @@ export const useAddCorgi = () => {
     );
   };
 
-  const handleSubmit = (e: SubmitEvent) => {
+  const handleSubmit = async (e: SubmitEvent) => {
     e.preventDefault();
+    const { errors } = await uploadImages(images.images());
+    if (errors.length > 0) {
+      console.error('Errors uploading images:', errors);
+      return;
+    }
     console.log(corgiName.value(), ownerName.value(), isOwner(), images.images());
   };
 

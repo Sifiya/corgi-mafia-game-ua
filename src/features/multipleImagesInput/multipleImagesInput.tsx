@@ -14,7 +14,7 @@ export const MultipleImagesInput: Component<MultipleImagesInputProps> = (props) 
 
   const handleAdd = (blob: Blob) => {
     const randomName = Math.random().toString(36).substring(2, 15);
-    const file = new File([blob], `${randomName}.png`, { type: 'image/png' });
+    const file = new File([blob], `${randomName}-${Date.now()}.jpg`, { type: 'image/jpeg' });
     const newImages = [...images(), file];
     setImages(newImages);
     props.onSave(newImages);

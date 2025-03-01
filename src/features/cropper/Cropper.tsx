@@ -1,6 +1,6 @@
 import './cropper.css';
 import { createSignal, onMount, onCleanup, Show } from 'solid-js';
-import { getImageCoverDimensions, getMaxDimensions } from './utils';
+import { getImageCoverDimensions, getMaxDimensions, compressImage } from './utils';
 import { cn } from '@/utils/class.utils';
 import { throttle } from 'lodash';
 import { Button } from '@/components/ui/button';
@@ -14,6 +14,7 @@ type CropperProps = {
   onSave: (blob: Blob) => void;
   cancelButtonText?: string;
   saveButtonText?: string;
+  maxSize?: number;
 }
 
 export const Cropper: Component<CropperProps> = (props) => {
@@ -174,13 +175,11 @@ export const Cropper: Component<CropperProps> = (props) => {
       0, 0, outputWidth, outputHeight
     );
 
-    // Convert to blob and download or use as needed
-    tempCanvas.toBlob((blob) => {
+    compressImage(tempCanvas, props.maxSize, 1, 'image/jpeg').then((blob) => {
       if (!blob) return;
-
       props.onSave(blob);
       setIsCropping(false);
-    }, 'image/png', 1);
+    });
   };
 
   const handleCancel = () => {

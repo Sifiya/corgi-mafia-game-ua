@@ -44,3 +44,32 @@ export const getMaxDimensions = (
 
   return { width: newWidth, height: newHeight };
 };
+
+export const compressImage = (
+  canvas: HTMLCanvasElement,
+  maxSize: number = 1024 * 1024,
+  initialQuality: number = 0.9,
+  type: string = 'image/jpeg',
+): Promise<Blob | null> => {
+  let quality = initialQuality;
+  return new Promise((resolve) => {
+    const compress = () => {
+      canvas.toBlob((blob) => {
+        if (!blob) {
+          resolve(null);
+          return;
+        }
+
+        if (blob.size < maxSize || quality <= 0.1) {
+          resolve(blob);
+          return;
+        } else {
+          quality -= 0.1;
+          compress();
+        }
+      }, type, quality);
+    };
+
+    compress();
+  });
+};
