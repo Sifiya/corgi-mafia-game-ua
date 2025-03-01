@@ -7,7 +7,7 @@ import type { RouteSectionProps } from '@solidjs/router';
 const App: Component<RouteSectionProps> = (props) => {
   return (
     <TranslationProvider>
-      <div class="flex flex-col min-h-screen lg:max-h-screen lg:overflow-hidden">
+      <div class="flex flex-col min-h-screen">
         <main class="grow flex flex-col">
           {props.children}
         </main>

@@ -101,42 +101,49 @@ export const StageQuiz: Component<StageQuizProps> = (props) => {
       </Show>
 
       <Show when={isGameOver()}>
-        <Header1>{i18n.t('FINISH_GAME_RESULT_TITLE')} {countCorrectAnswers()}</Header1>
+        <div class="flex flex-col items-center justify-center gap-8 py-8 px-4 mx-auto">
+          <div class="text-center">
+            <Header1 class="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary mb-2">
+              {i18n.t('FINISH_GAME_RESULT_TITLE')} {countCorrectAnswers()}/{questions().length}
+            </Header1>
+            <p class="text-muted-foreground text-lg">Час гри: {time()} секунд</p>
+          </div>
 
-        <Button
-          size="lg"
-          class="flex items-center"
-          onClick={() => props.handleFinishGame({
-            score: countCorrectAnswers(),
-            time: time(),
-          })}
-        >
-          {i18n.t('FINISH_GAME_BUTTON')}
-          <i class="ri-arrow-right-up-line text-xl" />
-        </Button>
+          <Button
+            size="lg"
+            class="flex items-center gap-2 px-8 py-6 text-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-md"
+            onClick={() => props.handleFinishGame({
+              score: countCorrectAnswers(),
+              time: time(),
+            })}
+          >
+            {i18n.t('FINISH_GAME_BUTTON')}
+            <i class="ri-arrow-right-up-line text-xl" />
+          </Button>
 
-        <div class="flex flex-wrap justify-center gap-2">
-          <For each={questions()}>
-            {(question) => (
-              <Card class="p-3 flex flex-col gap-3 items-center justify-start max-w-[150px]">
-                <div class="w-[120px] h-[120px] relative">
-                  <ImageRoot class="w-full h-full rounded-lg shadow-md">
-                    <Image src={question.image} alt={question.name} />
-                  </ImageRoot>
-                  <Badge
-                    class="absolute bottom-2 -right-2.5"
-                    variant={question.answer?.id === question.id ? 'success' : 'destructive'}
-                  >
-                    {question.answer?.id === question.id ? 'Correct' : 'Incorrect'}
-                  </Badge>
-                </div>
-                <Paragraph class="text-center text-sm text-card-foreground flex flex-col gap-0.5">
-                  <span>{question.name}</span>
-                  <span class="text-xs opacity-70">{question.ownerName}</span>
-                </Paragraph>
-              </Card>
-            )}
-          </For>
+          <div class="flex flex-wrap justify-center gap-4 mt-4 max-w-4xl">
+            <For each={questions()}>
+              {(question) => (
+                <Card class="p-4 flex flex-col gap-3 items-center justify-start max-w-[170px] hover:shadow-lg transition-shadow duration-300 border-2 border-opacity-50 border-muted">
+                  <div class="w-[140px] h-[140px] relative rounded-lg">
+                    <ImageRoot class="w-full h-full rounded-lg shadow-md transition-transform duration-300 hover:scale-105">
+                      <Image src={question.image} alt={question.name} />
+                    </ImageRoot>
+                    <Badge
+                      class="absolute bottom-2 -right-2.5 font-medium shadow-sm"
+                      variant={question.answer?.id === question.id ? 'success' : 'destructive'}
+                    >
+                      {question.answer?.id === question.id ? 'Правильно' : 'Неправильно'}
+                    </Badge>
+                  </div>
+                  <Paragraph class="text-center text-sm text-card-foreground flex flex-col gap-1 w-full">
+                    <span class="font-medium truncate">{question.name}</span>
+                    <span class="text-xs text-muted-foreground truncate">{question.ownerName}</span>
+                  </Paragraph>
+                </Card>
+              )}
+            </For>
+          </div>
         </div>
       </Show>
     </div>
