@@ -10,6 +10,7 @@ import { Checkbox, CheckboxControl, CheckboxLabel } from '@/components/ui/checkb
 import { Dictionary } from '@/lib/i18n/types';
 import { MultipleImagesInput } from '@/features/multipleImagesInput/multipleImagesInput';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
+import { Loader } from '@/components/ui/loader';
 
 import type { Component } from 'solid-js';
 
@@ -20,6 +21,11 @@ const AddCorgi: Component = () => {
   return (
     <>
       <Header />
+      <Show when={addCorgi.isSendingPending()}>
+        <div class="fixed inset-0 bg-background/60 flex justify-center items-center">
+          <Loader class="scale-200" />
+        </div>
+      </Show>
       <section class="flex flex-col grow justify-start items-center gap-2 px-6">
         <Header1 class="text-center">{i18n.t('ADD_CORGI_PAGE_TITLE')}</Header1>
 
@@ -79,7 +85,11 @@ const AddCorgi: Component = () => {
             </CheckboxLabel>
           </Checkbox>
 
-          <Button type="submit" class="mt-5" disabled={!addCorgi.isFormValid()}>
+          <Button
+            type="submit"
+            class="mt-5"
+            disabled={!addCorgi.isFormValid() || addCorgi.isSendingPending()}
+          >
             {i18n.t('ADD_CORGI_PAGE_BUTTON_ADD_CORGI')}
           </Button>
         </form>

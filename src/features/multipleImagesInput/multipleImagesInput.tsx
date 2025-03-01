@@ -24,7 +24,7 @@ export const MultipleImagesInput: Component<MultipleImagesInputProps> = (props) 
     <div class="flex flex-row flex-wrap items-center justify-center gap-4">
       <Show when={images().length > 0}>
         {images().map((image) => (
-          <Image src={URL.createObjectURL(image)} width={120} height={120} class="aspect-square object-cover" />
+          <Image src={URL.createObjectURL(image)} width={120} height={120} class="aspect-square object-cover shadow-md" />
         ))}
       </Show>
       <Cropper

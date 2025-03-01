@@ -1,4 +1,5 @@
 import { createSignal } from 'solid-js';
+import { useNavigate } from '@solidjs/router';
 import { useTextField, useMultipleImagesField } from '@/utils/form.utils';
 import { uploadImages } from './uploadImages';
 import { z } from 'zod';
@@ -17,6 +18,7 @@ const imagesSchema = z.array(z.instanceof(File))
   .max(5, { message: 'MAX_IMAGES_ERROR' });
 
 export const useAddCorgi = () => {
+  const navigate = useNavigate();
   const corgiName = useTextField({
     initialValue: '',
     checkValidity: (value) => validate(corgiNameSchema, value),
@@ -53,7 +55,7 @@ export const useAddCorgi = () => {
       setIsSendingPending(false);
       return;
     }
-    const { error } = await sendDog({
+    const { error, success, id } = await sendDog({
       name: corgiName.value(),
       ownerName: ownerName.value(),
       images: images.images().map((image) => image.name),
@@ -62,6 +64,9 @@ export const useAddCorgi = () => {
     setIsSendingPending(false);
     setIsSendingError(!!error);
     setSendingErrors(error ? [error] : []);
+    if (success) {
+      navigate(`/add-success/${id}`);
+    }
   };
 
   return {

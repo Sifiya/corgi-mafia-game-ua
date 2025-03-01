@@ -1,6 +1,6 @@
 import supabase from '@/lib/supabase/client';
 
-type Dog = {
+export type Dog = {
   name: string;
   ownerName: string;
   images: string[];
@@ -16,6 +16,7 @@ export const sendDog = async (dog: Dog) => {
     })
     .select().single();
   return {
+    id: data?.id,
     success: !!data,
     error: error?.message,
   };

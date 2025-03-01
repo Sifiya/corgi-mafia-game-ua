@@ -21,6 +21,10 @@ export const dict = {
   ADD_CORGI_PAGE_SAVE_BUTTON_TEXT: 'Зберегти',
   MAX_IMAGES_ERROR: 'Максимальна кількість зображень 5',
   ADD_CORGI_PAGE_ERROR_TITLE: 'Помилка при додаванні песика:',
+  ADD_SUCCESS_PAGE_TITLE: 'Все вийшло!',
+  ADD_SUCCESS_PAGE_DESCRIPTION: 'Вашого песика додано до гри!',
+  ADD_SUCCESS_PAGE_BUTTON_HOME: 'Повернутися на головну',
+  ADD_SUCCESS_PAGE_BUTTON_ADD_MORE: 'Додати ще песика',
 };
 
 export type Dict = typeof dict;
