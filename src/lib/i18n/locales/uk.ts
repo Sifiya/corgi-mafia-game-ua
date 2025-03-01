@@ -4,6 +4,7 @@ export const dict = {
   MAIN_PAGE_DESCRIPTION: 'Гра, в якій потрібно вгадати ім\'я собаки по його світлині',
   MAIN_PAGE_BUTTON_START: 'Почати гру',
   MAIN_PAGE_BUTTON_ADD_CORGI: 'Додати свого коргі',
+  MAIN_PAGE_BUTTON_RATING: 'Переглянути рейтинг',
   FOOTER_COPYRIGHT: '© {{ year }} Створено Тетяною Гринько',
   HEADER_HOME_BUTTON: 'На головну',
   ADD_CORGI_PAGE_TITLE: 'Додати свого коргі',
@@ -32,6 +33,11 @@ export const dict = {
   GAME_STAGE_QUIZ_TITLE: 'Погнали!',
   FINISH_GAME_BUTTON: 'Відправити результат',
   FINISH_GAME_RESULT_TITLE: 'Ваш результат:',
+  RATING_TABLE_HEAD_RANK: 'Місце',
+  RATING_TABLE_HEAD_NAME: 'Ім\'я',
+  RATING_TABLE_HEAD_SCORE: 'Очки',
+  RATING_TABLE_HEAD_TIME: 'Час',
+  RATING_TABLE_TITLE: 'Переможці',
 };
 
 export type Dict = typeof dict;

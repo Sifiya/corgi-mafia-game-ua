@@ -10,6 +10,7 @@ const Home = lazy(() => import('./pages/Home'));
 const AddCorgi = lazy(() => import('./pages/AddCorgi/AddCorgi'));
 const AddSuccess = lazy(() => import('./pages/AddSuccess'));
 const Game = lazy(() => import('./pages/Game/Game'));
+const Rating = lazy(() => import('./pages/Rating'));
 const root = document.getElementById('root');
 
 if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
@@ -25,6 +26,7 @@ render(
       <Route path="/add" component={AddCorgi} />
       <Route path="/add-success/:id" component={AddSuccess} />
       <Route path="/game" component={Game} />
+      <Route path="/rating" component={Rating} />
     </Router>
   ),
   root!,

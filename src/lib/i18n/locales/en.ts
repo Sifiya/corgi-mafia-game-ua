@@ -6,6 +6,7 @@ export const dict: RawDictionary = {
   MAIN_PAGE_DESCRIPTION: 'A game where you need to guess the dog\'s name by its picture',
   MAIN_PAGE_BUTTON_START: 'Start game',
   MAIN_PAGE_BUTTON_ADD_CORGI: 'Add your corgi',
+  MAIN_PAGE_BUTTON_RATING: 'View rating',
   FOOTER_COPYRIGHT: '© {{ year }} Created by Tetyana Hrynko',
   HEADER_HOME_BUTTON: 'Home',
   ADD_CORGI_PAGE_TITLE: 'Add your corgi',
@@ -34,4 +35,9 @@ export const dict: RawDictionary = {
   GAME_STAGE_QUIZ_TITLE: 'Let\'s go!',
   FINISH_GAME_BUTTON: 'Send result',
   FINISH_GAME_RESULT_TITLE: 'Your result:',
+  RATING_TABLE_HEAD_RANK: 'Rank',
+  RATING_TABLE_HEAD_NAME: 'Name',
+  RATING_TABLE_HEAD_SCORE: 'Score',
+  RATING_TABLE_HEAD_TIME: 'Time',
+  RATING_TABLE_TITLE: 'Winners',
 };

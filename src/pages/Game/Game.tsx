@@ -15,7 +15,7 @@ enum GameStage {
 }
 
 const Game: Component = () => {
-  const [stage, setStage] = createSignal<GameStage>(GameStage.Game);
+  const [stage, setStage] = createSignal<GameStage>(GameStage.InputName);
   const [name, setName] = createSignal<string>('');
   const [resultId, setResultId] = createSignal<number | null>(null);
 
