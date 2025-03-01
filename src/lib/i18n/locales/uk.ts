@@ -29,6 +29,7 @@ export const dict = {
   GAME_STAGE_INPUT_NAME_PLACEHOLDER: 'Схвильований мухомор',
   GAME_STAGE_INPUT_NAME_DESCRIPTION: 'Це ім\'я відображатиметься в таблиці результатів',
   GAME_STAGE_INPUT_NAME_BUTTON: 'Почати гру',
+  GAME_STAGE_QUIZ_TITLE: 'Погнали!',
 };
 
 export type Dict = typeof dict;
