@@ -20,6 +20,7 @@ export const dict = {
   ADD_CORGI_PAGE_CANCEL_BUTTON_TEXT: 'Скасувати',
   ADD_CORGI_PAGE_SAVE_BUTTON_TEXT: 'Зберегти',
   MAX_IMAGES_ERROR: 'Максимальна кількість зображень 5',
+  ADD_CORGI_PAGE_ERROR_TITLE: 'Помилка при додаванні песика:',
 };
 
 export type Dict = typeof dict;

@@ -3,7 +3,7 @@ import { useTextField, useMultipleImagesField } from '@/utils/form.utils';
 import { uploadImages } from './uploadImages';
 import { z } from 'zod';
 import { validate } from '@/lib/zod/utils';
-
+import { sendDog } from './sendDog';
 const corgiNameSchema = z.string()
   .min(1, { message: 'IS_REQUIRED_ERROR' })
   .max(200, { message: 'MAX_LENGTH_ERROR' })
@@ -30,6 +30,9 @@ export const useAddCorgi = () => {
     checkValidity: (value) => validate(imagesSchema, value),
   });
   const [isOwner, setIsOwner] = createSignal(false);
+  const [isSendingPending, setIsSendingPending] = createSignal(false);
+  const [isSendingError, setIsSendingError] = createSignal(false);
+  const [sendingErrors, setSendingErrors] = createSignal<string[]>([]);
 
   const isFormValid = () => {
     return (
@@ -42,12 +45,23 @@ export const useAddCorgi = () => {
 
   const handleSubmit = async (e: SubmitEvent) => {
     e.preventDefault();
+    setIsSendingPending(true);
     const { errors } = await uploadImages(images.images());
     if (errors.length > 0) {
-      console.error('Errors uploading images:', errors);
+      setIsSendingError(true);
+      setSendingErrors(errors);
+      setIsSendingPending(false);
       return;
     }
-    console.log(corgiName.value(), ownerName.value(), isOwner(), images.images());
+    const { error } = await sendDog({
+      name: corgiName.value(),
+      ownerName: ownerName.value(),
+      images: images.images().map((image) => image.name),
+    });
+
+    setIsSendingPending(false);
+    setIsSendingError(!!error);
+    setSendingErrors(error ? [error] : []);
   };
 
   return {
@@ -58,5 +72,8 @@ export const useAddCorgi = () => {
     setIsOwner,
     handleSubmit,
     isFormValid,
+    isSendingPending,
+    isSendingError,
+    sendingErrors,
   };
 };

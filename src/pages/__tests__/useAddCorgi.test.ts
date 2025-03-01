@@ -40,10 +40,7 @@ describe('uploadImages', () => {
     const result = await uploadImages(mockFiles);
 
     expect(result.errors).toHaveLength(1);
-    expect(result.errors[0]).toEqual({
-      message: 'Помилка завантаження',
-      filename: 'test.jpg',
-    });
+    expect(result.errors[0]).toEqual('test.jpg: Помилка завантаження');
   });
 });
 

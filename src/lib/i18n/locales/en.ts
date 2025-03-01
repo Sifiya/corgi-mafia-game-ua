@@ -22,4 +22,5 @@ export const dict: RawDictionary = {
   ADD_CORGI_PAGE_CANCEL_BUTTON_TEXT: 'Cancel',
   ADD_CORGI_PAGE_SAVE_BUTTON_TEXT: 'Save',
   MAX_IMAGES_ERROR: 'Maximum number of images is 5',
+  ADD_CORGI_PAGE_ERROR_TITLE: 'Error adding corgi:',
 };

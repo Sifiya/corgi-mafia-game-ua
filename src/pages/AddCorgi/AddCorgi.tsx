@@ -1,5 +1,7 @@
 import { useTranslationContext } from '@/lib/i18n/context';
 import { useAddCorgi } from './useAddCorgi';
+
+import { Show } from 'solid-js';
 import { Header1 } from '@/components/typography/header1';
 import { Header } from '@/features/header';
 import { TextFieldLabel, TextFieldRoot, TextField, TextFieldDescription, TextFieldErrorMessage} from '@/components/ui/textfield';
@@ -7,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Checkbox, CheckboxControl, CheckboxLabel } from '@/components/ui/checkbox';
 import { Dictionary } from '@/lib/i18n/types';
 import { MultipleImagesInput } from '@/features/multipleImagesInput/multipleImagesInput';
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 
 import type { Component } from 'solid-js';
 
@@ -17,12 +20,12 @@ const AddCorgi: Component = () => {
   return (
     <>
       <Header />
-      <section class="flex flex-col grow justify-start items-center gap-5 md:gap-8 px-6">
+      <section class="flex flex-col grow justify-start items-center gap-2 px-6">
         <Header1 class="text-center">{i18n.t('ADD_CORGI_PAGE_TITLE')}</Header1>
 
         <form
           onSubmit={addCorgi.handleSubmit}
-          class="flex flex-col gap-4 w-full max-w-md"
+          class="flex flex-col gap-4 w-full max-w-md mt-8"
         >
           <MultipleImagesInput onSave={addCorgi.images.onChange} />
 
@@ -80,6 +83,22 @@ const AddCorgi: Component = () => {
             {i18n.t('ADD_CORGI_PAGE_BUTTON_ADD_CORGI')}
           </Button>
         </form>
+
+        <Button as="a" href="/" variant="link">
+          <i aria-hidden="true" class="ri-arrow-left-s-line mr-px -ml-3" />
+          {i18n.t('HEADER_HOME_BUTTON')}
+        </Button>
+
+        <Show when={addCorgi.isSendingError()}>
+          <Alert variant="destructive" class="max-w-md">
+            <AlertTitle>
+              {i18n.t('ADD_CORGI_PAGE_ERROR_TITLE')}
+            </AlertTitle>
+            <AlertDescription>
+              {addCorgi.sendingErrors().join(', ')}
+            </AlertDescription>
+          </Alert>
+        </Show>
       </section>
     </>
   );
