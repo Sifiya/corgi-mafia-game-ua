@@ -46,11 +46,13 @@ export const MultipleImagesInput: Component<MultipleImagesInputProps> = (props) 
           </div>
         ))}
       </Show>
-      <Cropper
-        onSave={handleAdd}
-        cancelButtonText={i18n.t('ADD_CORGI_PAGE_CANCEL_BUTTON_TEXT')}
-        saveButtonText={i18n.t('ADD_CORGI_PAGE_SAVE_BUTTON_TEXT')}
-      />
+      <Show when={images().length < 5}>
+        <Cropper
+          onSave={handleAdd}
+          cancelButtonText={i18n.t('ADD_CORGI_PAGE_CANCEL_BUTTON_TEXT')}
+          saveButtonText={i18n.t('ADD_CORGI_PAGE_SAVE_BUTTON_TEXT')}
+        />
+      </Show>
     </div>
   );
 };

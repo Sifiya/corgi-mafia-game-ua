@@ -8,3 +8,8 @@ dist
 # VSCode and Cursor
 .history
 .vscode
+
+# Firebase
+.firebaserc
+firebase.json
+.firebase

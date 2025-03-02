@@ -18,14 +18,17 @@ export const ImageInput = (props: ImageInputProps) => {
       props.class,
     )}>
       <div class="absolute inset-0 top-1 p-3" aria-hidden="true">
-        <img src="/src/assets/corgi-shadow.png" class="w-full h-full" />
+        <img
+          src="https://dvprhuyuzzzibulnajrh.supabase.co/storage/v1/object/public/corgis/assets/corgi-shadow.png"
+          class="w-full h-full"
+          alt="Тіньова фігура коргі"
+        />
         <i class="ri-add-fill absolute left-1/2 top-1/2 -translate-x-[65%] -translate-y-[30%] text-5xl text-background" />
       </div>
       <input
         ref={props.ref}
         type="file"
-        accept="image/png, image/jpeg"
-        capture="environment"
+        accept="capture=camera,image/*"
         class="hidden"
         onChange={(event) => {
           const input = event.target as HTMLInputElement;
