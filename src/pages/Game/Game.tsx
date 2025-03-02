@@ -47,6 +47,11 @@ const Game: Component = () => {
     setStage(GameStage.Result);
   };
 
+  const handlePlayAgain = () => {
+    setStage(GameStage.Game);
+    setResult(null);
+  };
+
   return (
     <>
       <Header />
@@ -62,7 +67,7 @@ const Game: Component = () => {
         </Show>
 
         <Show when={stage() === GameStage.Result}>
-          <StageResult result={result()} />
+          <StageResult result={result()} onPlayAgain={handlePlayAgain} />
         </Show>
       </section>
     </>

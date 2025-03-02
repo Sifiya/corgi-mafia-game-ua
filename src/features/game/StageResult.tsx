@@ -10,6 +10,7 @@ import { Loader } from '@/components/ui/loader';
 
 type StageResultProps = {
   result: Omit<Result, 'rank'> | null;
+  onPlayAgain: () => void;
 }
 
 export const StageResult: Component<StageResultProps> = (props) => {
@@ -47,8 +48,7 @@ export const StageResult: Component<StageResultProps> = (props) => {
       <Header1 class="text-center">{i18n.t('RATING_TABLE_TITLE')}</Header1>
       <RatingTable topResults={topResults} />
       <Button
-        as="a"
-        href="/game"
+        onClick={props.onPlayAgain}
         size="lg"
       >
         <i aria-hidden="true" class="text-lg ri-play-large-fill mr-1 -ml-2" />

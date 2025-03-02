@@ -11,7 +11,7 @@ import {
   TextFieldErrorMessage,
 } from '@/components/ui/textfield';
 import { Button } from '@/components/ui/button';
-import { Show, type Component } from 'solid-js';
+import { Show, type Component, onMount } from 'solid-js';
 import type { Dictionary } from '@/lib/i18n/types';
 
 const nameSchema = z.string()
@@ -25,14 +25,25 @@ type StageInputNameProps = {
 
 export const StageInputName: Component<StageInputNameProps> = (props) => {
   const i18n = useTranslationContext();
+  const savedName = localStorage.getItem('playerName') || '';
+  const ownerSavedName = localStorage.getItem('ownerName') || '';
+
   const name = useTextField({
-    initialValue: '',
+    initialValue: savedName || ownerSavedName,
     checkValidity: (value) => validate(nameSchema, value),
+  });
+
+  onMount(() => {
+    if (savedName && validate(nameSchema, savedName).isValid) {
+      props.onNext(savedName);
+    }
   });
 
   const handleSubmit = (e: SubmitEvent) => {
     e.preventDefault();
-    props.onNext(name.value());
+    const playerName = name.value();
+    localStorage.setItem('playerName', playerName);
+    props.onNext(playerName);
   };
 
   return (

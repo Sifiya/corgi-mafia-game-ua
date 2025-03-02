@@ -19,13 +19,15 @@ const imagesSchema = z.array(z.instanceof(File))
 
 export const useAddCorgi = () => {
   const navigate = useNavigate();
+  const ownerSavedName = localStorage.getItem('ownerName') || '';
+
   const corgiName = useTextField({
     initialValue: '',
     checkValidity: (value) => validate(corgiNameSchema, value),
   });
 
   const ownerName = useTextField({
-    initialValue: '',
+    initialValue: ownerSavedName,
     checkValidity: (value) => validate(ownerNameSchema, value),
   });
   const images = useMultipleImagesField({
@@ -65,6 +67,7 @@ export const useAddCorgi = () => {
     setIsSendingError(!!error);
     setSendingErrors(error ? [error] : []);
     if (success) {
+      localStorage.setItem('ownerName', ownerName.value());
       navigate(`/add-success/${id}`);
     }
   };
