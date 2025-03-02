@@ -34,12 +34,16 @@ const Game: Component = () => {
       score: data.score,
       time: data.time,
     });
-    setResult({
-      id: result.id,
-      name: result.player_name,
-      score: result.score,
-      time: result.time_taken,
-    });
+
+    if (result) {
+      setResult({
+        id: result.id,
+        name: result.player_name,
+        score: result.score,
+        fullScore: result.full_score || 0,
+        time: result.time_taken,
+      });
+    }
     setStage(GameStage.Result);
   };
 

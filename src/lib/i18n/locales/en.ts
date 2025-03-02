@@ -40,4 +40,8 @@ export const dict: RawDictionary = {
   RATING_TABLE_HEAD_SCORE: 'Score',
   RATING_TABLE_HEAD_TIME: 'Time',
   RATING_TABLE_TITLE: 'Winners',
+  RATING_TABLE_HEAD_RIGHT_ANSWERS: 'Right answers',
+  QUIZ_CORRECT_ANSWER: 'Correct',
+  QUIZ_INCORRECT_ANSWER: 'Incorrect',
+  RATING_STAGE_PLAY_AGAIN_BUTTON: 'Play again',
 };

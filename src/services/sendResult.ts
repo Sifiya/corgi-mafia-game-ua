@@ -12,6 +12,7 @@ export const sendResult = async (result: GameResult) => {
     score: result.score,
     player_name: result.playerName,
   }).select().single();
+
   return {
     result: data,
     success: !!data,

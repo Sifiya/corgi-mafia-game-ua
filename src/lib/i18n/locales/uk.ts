@@ -35,9 +35,13 @@ export const dict = {
   FINISH_GAME_RESULT_TITLE: 'Ваш результат:',
   RATING_TABLE_HEAD_RANK: 'Місце',
   RATING_TABLE_HEAD_NAME: 'Ім\'я',
-  RATING_TABLE_HEAD_SCORE: 'Очки',
+  RATING_TABLE_HEAD_SCORE: 'Бали',
   RATING_TABLE_HEAD_TIME: 'Час',
   RATING_TABLE_TITLE: 'Переможці',
+  RATING_TABLE_HEAD_RIGHT_ANSWERS: 'Правильні відповіді',
+  QUIZ_CORRECT_ANSWER: 'Правильно',
+  QUIZ_INCORRECT_ANSWER: 'Неправильно',
+  RATING_STAGE_PLAY_AGAIN_BUTTON: 'Грати ще раз',
 };
 
 export type Dict = typeof dict;

@@ -47,7 +47,7 @@ export const StageResult: Component<StageResultProps> = (props) => {
         size="lg"
       >
         <i aria-hidden="true" class="text-lg ri-play-large-fill mr-1 -ml-2" />
-        {i18n.t('MAIN_PAGE_BUTTON_START')}
+        {i18n.t('RATING_STAGE_PLAY_AGAIN_BUTTON')}
       </Button>
     </div>
   );

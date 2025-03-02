@@ -1,6 +1,10 @@
 node_modules
 dist
 .env
-.history
+
 .DS_Store
 **/.DS_Store
+
+# VSCode and Cursor
+.history
+.vscode

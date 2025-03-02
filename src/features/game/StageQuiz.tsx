@@ -44,12 +44,20 @@ export const StageQuiz: Component<StageQuizProps> = (props) => {
     const response = await getRandomDogs(5);
 
     if (response.data) {
-      const dogs = response.data.map((dog) => ({
-        id: dog.id,
-        name: dog.name,
-        ownerName: dog.owner_name,
-        image: getImageUrl(getRandomImage(dog.images)),
-      }));
+      const dogs = response.data.map((item) => {
+        const dog = item as unknown as {
+          id: string;
+          name: string;
+          owner_name: string;
+          images: string[];
+        };
+        return {
+          id: dog.id,
+          name: dog.name,
+          ownerName: dog.owner_name,
+          image: getImageUrl(getRandomImage(dog.images)),
+        };
+      });
 
       setNames(dogs.map(({ id, name, ownerName }) => ({ id, name, ownerName })));
       setQuestions(dogs.map(({ id, image, name, ownerName }) => ({ id, image, name, ownerName })));
@@ -133,7 +141,7 @@ export const StageQuiz: Component<StageQuizProps> = (props) => {
                       class="absolute bottom-2 -right-2.5 font-medium shadow-sm"
                       variant={question.answer?.id === question.id ? 'success' : 'destructive'}
                     >
-                      {question.answer?.id === question.id ? 'Правильно' : 'Неправильно'}
+                      {question.answer?.id === question.id ? i18n.t('QUIZ_CORRECT_ANSWER') : i18n.t('QUIZ_INCORRECT_ANSWER')}
                     </Badge>
                   </div>
                   <Paragraph class="text-center text-sm text-card-foreground flex flex-col gap-1 w-full">

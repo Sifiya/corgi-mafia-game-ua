@@ -10,6 +10,7 @@ export interface Result {
   id: string;
   name: string;
   score: number;
+  fullScore: number;
   time: number;
   rank: number;
 };
@@ -28,6 +29,7 @@ export const RatingTable: Component<RatingTableProps> = (props) => {
             <TableHead class="py-4 text-center font-bold text-foreground">{i18n.t('RATING_TABLE_HEAD_RANK')}</TableHead>
             <TableHead class="py-4 text-center font-bold text-foreground even:bg-primary/5">{i18n.t('RATING_TABLE_HEAD_NAME')}</TableHead>
             <TableHead class="py-4 text-center font-bold text-foreground">{i18n.t('RATING_TABLE_HEAD_SCORE')}</TableHead>
+            <TableHead class="py-4 text-center font-bold text-foreground">{i18n.t('RATING_TABLE_HEAD_RIGHT_ANSWERS')}</TableHead>
             <TableHead class="py-4 text-center font-bold text-foreground even:bg-primary/5">{i18n.t('RATING_TABLE_HEAD_TIME')}</TableHead>
           </TableRow>
         </TableHeader>
@@ -60,10 +62,14 @@ export const RatingTable: Component<RatingTableProps> = (props) => {
                 <TableCell class={cn(
                   'py-3 text-center odd:bg-primary/5 font-medium',
                   result.shouldHighlight && 'bg-blue-300/50 odd:bg-blue-300/50'
-                )}>{result.score}</TableCell>
+                )}>{result.fullScore}</TableCell>
                 <TableCell class={cn(
                   'py-3 text-center',
                   result.shouldHighlight && 'bg-blue-100/50'
+                )}>{result.score}</TableCell>
+                <TableCell class={cn(
+                  'py-3 text-center odd:bg-primary/5 font-medium',
+                  result.shouldHighlight && 'bg-blue-300/50 odd:bg-blue-300/50'
                 )}>{formatSeconds(result.time)}</TableCell>
               </TableRow>
             )}
