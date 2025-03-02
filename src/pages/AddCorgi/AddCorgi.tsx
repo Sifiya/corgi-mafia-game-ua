@@ -21,11 +21,7 @@ const AddCorgi: Component = () => {
   return (
     <>
       <Header />
-      <Show when={addCorgi.isSendingPending()}>
-        <div class="fixed inset-0 bg-background/60 flex justify-center items-center">
-          <Loader class="scale-200" />
-        </div>
-      </Show>
+      <Loader show={addCorgi.isSendingPending()} />
       <section class="flex flex-col grow justify-start items-center gap-2 px-6">
         <Header1 class="text-center">{i18n.t('ADD_CORGI_PAGE_TITLE')}</Header1>
 

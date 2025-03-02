@@ -6,6 +6,7 @@ import { RatingTable } from '../RatingTable';
 import { Button } from '@/components/ui/button';
 import type { Component } from 'solid-js';
 import type { Result } from '@/features/RatingTable';
+import { Loader } from '@/components/ui/loader';
 
 type StageResultProps = {
   result: Omit<Result, 'rank'> | null;
@@ -15,8 +16,11 @@ export const StageResult: Component<StageResultProps> = (props) => {
 
   const i18n = useTranslationContext();
   const [topResults, setTopResults] = createSignal<Result[]>([]);
+  const [isLoading, setIsLoading] = createSignal(false);
   onMount(async () => {
+    setIsLoading(true);
     const { data } = await getTopResults();
+    setIsLoading(false);
     if (!data) return;
     const newTopResults = data;
 
@@ -39,6 +43,7 @@ export const StageResult: Component<StageResultProps> = (props) => {
 
   return (
     <div class="max-w-xl w-full mx-auto px-4 py-8 flex flex-col gap-8">
+      <Loader show={isLoading()} />
       <Header1 class="text-center">{i18n.t('RATING_TABLE_TITLE')}</Header1>
       <RatingTable topResults={topResults} />
       <Button

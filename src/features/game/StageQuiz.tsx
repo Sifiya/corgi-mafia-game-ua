@@ -11,6 +11,7 @@ import { Card } from '@/components/ui/card';
 import { Timer } from '@/features/timer/Timer';
 
 import type { Component } from 'solid-js';
+import { Loader } from '@/components/ui/loader';
 
 type QuizName = {
   id: string;
@@ -32,6 +33,7 @@ type StageQuizProps = {
 
 export const StageQuiz: Component<StageQuizProps> = (props) => {
   const i18n = useTranslationContext();
+  const [isLoading, setIsLoading] = createSignal(false);
   const [names, setNames] = createSignal<QuizName[]>([]);
   const [questions, setQuestions] = createSignal<QuizQuestion[]>([]);
   const [currentIndex, setCurrentIndex] = createSignal(0);
@@ -41,7 +43,9 @@ export const StageQuiz: Component<StageQuizProps> = (props) => {
 
   // TODO: add error handling when no dogs are found
   onMount(async () => {
+    setIsLoading(true);
     const response = await getRandomDogs(5);
+    setIsLoading(false);
 
     if (response.data) {
       const dogs = response.data.map((item) => {
@@ -87,7 +91,11 @@ export const StageQuiz: Component<StageQuizProps> = (props) => {
 
   return (
     <div class="w-full max-w-[1000px] flex flex-col items-center gap-5">
-      <Timer shouldStop={shouldStop()} handleStop={setTime} />
+      <Loader show={isLoading()} />
+
+      <Show when={!isLoading()}>
+        <Timer shouldStop={shouldStop()} handleStop={setTime} />
+      </Show>
 
       <Show when={!isGameOver() && questions().length > 0}>
         <div class="flex flex-col gap-2">
