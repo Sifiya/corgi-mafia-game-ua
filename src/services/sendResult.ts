@@ -13,7 +13,7 @@ export const sendResult = async (result: GameResult) => {
     player_name: result.playerName,
   }).select().single();
   return {
-    id: data?.id,
+    result: data,
     success: !!data,
     error: error?.message,
   };

@@ -7,6 +7,7 @@ import { StageInputName } from '@/features/game/StageInputName';
 import { StageQuiz } from '@/features/game/StageQuiz';
 import { StageResult } from '@/features/game/StageResult';
 import type { Component } from 'solid-js';
+import type { Result } from '@/features/RatingTable';
 
 enum GameStage {
   InputName = 0,
@@ -17,7 +18,7 @@ enum GameStage {
 const Game: Component = () => {
   const [stage, setStage] = createSignal<GameStage>(GameStage.InputName);
   const [name, setName] = createSignal<string>('');
-  const [resultId, setResultId] = createSignal<number | null>(null);
+  const [result, setResult] = createSignal<Omit<Result, 'rank'> | null>(null);
 
   const handleFirstStage = (name: string) => {
     setStage(GameStage.Game);
@@ -28,12 +29,17 @@ const Game: Component = () => {
     score: number;
     time: number;
   }) => {
-    const { id } = await sendResult({
+    const { result } = await sendResult({
       playerName: name(),
       score: data.score,
       time: data.time,
     });
-    setResultId(id);
+    setResult({
+      id: result.id,
+      name: result.player_name,
+      score: result.score,
+      time: result.time_taken,
+    });
     setStage(GameStage.Result);
   };
 
@@ -52,7 +58,7 @@ const Game: Component = () => {
         </Show>
 
         <Show when={stage() === GameStage.Result}>
-          <StageResult resultId={resultId() ?? 0} />
+          <StageResult result={result()} />
         </Show>
       </section>
     </>
