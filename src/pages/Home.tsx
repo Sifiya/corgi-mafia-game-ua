@@ -33,26 +33,26 @@ const Home: Component = () => {
           {i18n.t('MAIN_PAGE_DESCRIPTION')}
         </Paragraph>
 
-        <div class="flex gap-4 sm:flex-row flex-col w-full max-w-md">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-md">
           <Button
             as="a"
             href="/add"
             variant="secondary"
             size="lg"
-            class="sm:basis-1/2 shrink-0 whitespace-nowrap"
+            class="whitespace-nowrap col-span-2"
           >
             <i aria-hidden="true" class="text-lg ri-add-fill mr-1 -ml-2" />
             {i18n.t('MAIN_PAGE_BUTTON_ADD_CORGI')}
           </Button>
-          <Button
+          {/* <Button
             as="a"
             href="/game"
             size="lg"
-            class="sm:basis-1/2 shrink-0 whitespace-nowrap"
+            class="whitespace-nowrap"
           >
             <i aria-hidden="true" class="text-lg ri-play-large-fill mr-1 -ml-2" />
             {i18n.t('MAIN_PAGE_BUTTON_START')}
-          </Button>
+          </Button> */}
         </div>
       </section>
     </>
