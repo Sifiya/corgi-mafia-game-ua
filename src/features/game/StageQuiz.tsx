@@ -44,7 +44,7 @@ export const StageQuiz: Component<StageQuizProps> = (props) => {
   // TODO: add error handling when no dogs are found
   onMount(async () => {
     setIsLoading(true);
-    const response = await getRandomDogs(5);
+    const response = await getRandomDogs(15);
     setIsLoading(false);
 
     if (response.data) {
@@ -104,10 +104,10 @@ export const StageQuiz: Component<StageQuizProps> = (props) => {
           </ImageRoot>
         </div>
 
-        <div class="grid grid-cols-2 gap-2 min-w-[300px]">
+        <div class="grid grid-cols-3 gap-2 min-w-[300px]">
           <For each={names()}>
             {(item) => (
-              <Button type="button" variant="outline" class="flex-col h-auto hover:bg-muted/50" onClick={() => handleAnswer(item)}>
+              <Button type="button" size="sm" variant="outline" class="flex-col h-auto hover:bg-muted/50" onClick={() => handleAnswer(item)}>
                 <span class="text-base">{item.name}</span>
                 <span class="text-sm text-muted-foreground/80">{item.ownerName}</span>
               </Button>

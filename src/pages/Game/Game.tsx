@@ -56,7 +56,7 @@ const Game: Component = () => {
     <>
       <Header />
       <section class={cn(
-        'flex flex-col gap-5 grow justify-center items-center',
+        'flex flex-col gap-5 grow items-center',
       )}>
         <Show when={stage() === GameStage.InputName}>
           <StageInputName onNext={handleFirstStage} />
