@@ -4,6 +4,10 @@ type GameResult = {
   time: number;
   score: number;
   playerName: string;
+  gameStats: {
+    correctAnswers: string[];
+    incorrectAnswers: string[];
+  }
 }
 
 export const sendResult = async (result: GameResult) => {
@@ -11,6 +15,7 @@ export const sendResult = async (result: GameResult) => {
     time_taken: result.time,
     score: result.score,
     player_name: result.playerName,
+    game_stats: result.gameStats,
   }).select().single();
 
   return {

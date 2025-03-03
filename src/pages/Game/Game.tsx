@@ -28,11 +28,17 @@ const Game: Component = () => {
   const handleFinishGame = async (data: {
     score: number;
     time: number;
+    correctAnswers: string[];
+    incorrectAnswers: string[];
   }) => {
     const { result } = await sendResult({
       playerName: name(),
       score: data.score,
       time: data.time,
+      gameStats: {
+        correctAnswers: data.correctAnswers,
+        incorrectAnswers: data.incorrectAnswers,
+      },
     });
 
     if (result) {

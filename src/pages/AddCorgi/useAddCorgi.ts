@@ -8,11 +8,11 @@ import { sendDog } from './sendDog';
 const corgiNameSchema = z.string()
   .min(1, { message: 'IS_REQUIRED_ERROR' })
   .max(60, { message: 'MAX_LENGTH_ERROR' })
-  .regex(/^[a-zA-Zа-яА-ЯіІїЇєЄ0-9'ʼ-\s]+$/, { message: 'INVALID_CHARACTERS_ERROR' });
+  .regex(/^[a-zA-Zа-яА-ЯіІїЇҐґєЄ0-9'ʼ-\s]+$/, { message: 'INVALID_CHARACTERS_ERROR' });
 const ownerNameSchema = z.string()
   .min(1, { message: 'IS_REQUIRED_ERROR' })
   .max(60, { message: 'MAX_LENGTH_ERROR' })
-  .regex(/^[a-zA-Zа-яА-ЯіІїЇєЄ0-9'ʼ-\s]+$/, { message: 'INVALID_CHARACTERS_ERROR' });
+  .regex(/^[a-zA-Zа-яА-ЯіІїЇҐґєЄ0-9'ʼ-\s]+$/, { message: 'INVALID_CHARACTERS_ERROR' });
 const imagesSchema = z.array(z.instanceof(File))
   .nonempty({ message: 'IS_REQUIRED_ERROR' })
   .max(5, { message: 'MAX_IMAGES_ERROR' });

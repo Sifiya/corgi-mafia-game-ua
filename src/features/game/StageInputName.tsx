@@ -17,7 +17,7 @@ import type { Dictionary } from '@/lib/i18n/types';
 const nameSchema = z.string()
   .min(1, { message: 'IS_REQUIRED_ERROR' })
   .max(60, { message: 'MAX_LENGTH_ERROR' })
-  .regex(/^[a-zA-Zа-яА-ЯіІїЇєЄ0-9'ʼ-\s]+$/, { message: 'INVALID_CHARACTERS_ERROR' });
+  .regex(/^[a-zA-Zа-яА-ЯіІїЇҐґєЄ0-9'ʼ-\s]+$/, { message: 'INVALID_CHARACTERS_ERROR' });
 
 type StageInputNameProps = {
   onNext: (name: string) => void;

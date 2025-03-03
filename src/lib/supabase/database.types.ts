@@ -39,7 +39,8 @@ export type Database = {
       results: {
         Row: {
           created_at: string
-          full_score: number | null
+          full_score: number
+          game_stats: Json
           id: string
           player_name: string
           score: number
@@ -47,7 +48,8 @@ export type Database = {
         }
         Insert: {
           created_at?: string
-          full_score?: number | null
+          full_score?: number
+          game_stats: Json
           id?: string
           player_name: string
           score: number
@@ -55,7 +57,8 @@ export type Database = {
         }
         Update: {
           created_at?: string
-          full_score?: number | null
+          full_score?: number
+          game_stats?: Json
           id?: string
           player_name?: string
           score?: number

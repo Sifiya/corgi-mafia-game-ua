@@ -28,6 +28,8 @@ type StageQuizProps = {
   handleFinishGame: (data: {
     score: number;
     time: number;
+    correctAnswers: string[];
+    incorrectAnswers: string[];
   }) => void;
 }
 
@@ -131,6 +133,8 @@ export const StageQuiz: Component<StageQuizProps> = (props) => {
             onClick={() => props.handleFinishGame({
               score: countCorrectAnswers(),
               time: time(),
+              correctAnswers: questions().filter((question) => question.answer?.id === question.id).map((question) => question.id),
+              incorrectAnswers: questions().filter((question) => question.answer?.id !== question.id).map((question) => question.id),
             })}
           >
             {i18n.t('FINISH_GAME_BUTTON')}
