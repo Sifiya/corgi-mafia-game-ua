@@ -44,4 +44,7 @@ export const dict: RawDictionary = {
   QUIZ_CORRECT_ANSWER: 'Correct',
   QUIZ_INCORRECT_ANSWER: 'Incorrect',
   RATING_STAGE_PLAY_AGAIN_BUTTON: 'Play again',
+  DONATE_BUTTON: 'Donate',
+  DONATE_TITLE: 'Did you like the game?',
+  DONATE_DESCRIPTION: 'Support the BF «Corgi support»',
 };

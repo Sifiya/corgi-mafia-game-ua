@@ -6,6 +6,7 @@ import { Header1 } from '@/components/typography/header1';
 import { Button } from '@/components/ui/button';
 import { RatingTable, type Result } from '@/features/RatingTable';
 import { Loader } from '@/components/ui/loader';
+import { DonateLink } from '@/features/DonateLink';
 import type { Component } from 'solid-js';
 
 const Rating: Component = () => {
@@ -26,6 +27,9 @@ const Rating: Component = () => {
     <>
       <Header />
       <Loader show={isLoading()} />
+      <div class="max-w-sm w-full mx-auto px-4 py-8 flex flex-col gap-8">
+        <DonateLink />
+      </div>
       <section class="max-w-xl w-full mx-auto px-4 py-8 flex flex-col gap-8">
         <Header1 class="text-center">{i18n.t('RATING_TABLE_TITLE')}</Header1>
         <RatingTable topResults={topResults} />

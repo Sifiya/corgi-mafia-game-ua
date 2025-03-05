@@ -42,6 +42,9 @@ export const dict = {
   QUIZ_CORRECT_ANSWER: 'Правильно',
   QUIZ_INCORRECT_ANSWER: 'Неправильно',
   RATING_STAGE_PLAY_AGAIN_BUTTON: 'Грати ще раз',
+  DONATE_BUTTON: 'Підтримати проект',
+  DONATE_TITLE: 'Сподобалася гра?',
+  DONATE_DESCRIPTION: 'Підтримай БФ «Коргі-підтримка»',
 };
 
 export type Dict = typeof dict;

@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import type { Component } from 'solid-js';
 import type { Result } from '@/features/RatingTable';
 import { Loader } from '@/components/ui/loader';
+import { DonateLink } from '../DonateLink';
 
 type StageResultProps = {
   result: Omit<Result, 'rank'> | null;
@@ -54,6 +55,8 @@ export const StageResult: Component<StageResultProps> = (props) => {
         <i aria-hidden="true" class="text-lg ri-play-large-fill mr-1 -ml-2" />
         {i18n.t('RATING_STAGE_PLAY_AGAIN_BUTTON')}
       </Button>
+
+      <DonateLink />
     </div>
   );
 };
