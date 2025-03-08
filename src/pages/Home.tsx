@@ -34,7 +34,7 @@ const Home: Component = () => {
         </Paragraph>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-md">
-          {/* <Button
+          <Button
             as="a"
             href="/add"
             variant="secondary"
@@ -43,12 +43,12 @@ const Home: Component = () => {
           >
             <i aria-hidden="true" class="text-lg ri-add-fill mr-1 -ml-2" />
             {i18n.t('MAIN_PAGE_BUTTON_ADD_CORGI')}
-          </Button> */}
+          </Button>
           <Button
             as="a"
             href="/game"
             size="lg"
-            class="whitespace-nowrap col-span-2"
+            class="whitespace-nowrap"
           >
             <i aria-hidden="true" class="text-lg ri-play-large-fill mr-1 -ml-2" />
             {i18n.t('MAIN_PAGE_BUTTON_START')}

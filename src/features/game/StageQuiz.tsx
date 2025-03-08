@@ -160,6 +160,9 @@ export const StageQuiz: Component<StageQuizProps> = (props) => {
                     <span class="font-medium truncate">{question.name}</span>
                     <span class="text-xs text-muted-foreground truncate">{question.ownerName}</span>
                   </Paragraph>
+                  <Paragraph class="text-center text-xs text-muted-foreground flex flex-col gap-1 w-full">
+                    Ви відповіли: {question.answer?.name + ' (' + question.answer?.ownerName + ')'}
+                  </Paragraph>
                 </Card>
               )}
             </For>
